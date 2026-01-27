@@ -5,9 +5,11 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-       [Header("Player Settings")]
+    [Header("Player Settings")]
     [SerializeField] float speed;
     [SerializeField] float jumpingPower;
+    [SerializeField] float dashPower;
+
 
     [Header("Grounding")]
     [SerializeField] LayerMask groundLayer;
@@ -46,6 +48,19 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
         }
+    }
+
+    public void Dash(InputAction.CallbackContext context)
+    {
+
+        if (context.performed)
+        {
+            print("Dash");
+            rb.velocity = new Vector2(dashPower + rb.velocity.x, rb.velocity.y);
+        }
+
+        
+        
     }
 
     #endregion
