@@ -127,7 +127,7 @@ namespace MainScripts.Spine
         {
             if (_activeAnimationStates.TryGetValue(trackEntry.TrackIndex, out var activeState))
             {
-                if(!trackEntry.Loop && Mathf.Approximately(trackEntry.AnimationEnd, trackEntry.AnimationTime));
+                if(!trackEntry.Loop && Mathf.Approximately(trackEntry.AnimationEnd, trackEntry.AnimationTime))
                 {
                     OnAnimationComplete?.Invoke(new AnimationCompleteData
                     {

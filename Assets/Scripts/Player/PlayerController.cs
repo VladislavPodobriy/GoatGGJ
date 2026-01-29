@@ -33,7 +33,6 @@ public class PlayerController : MonoBehaviour
     public void Move(InputAction.CallbackContext context)
     {
         horizontal = context.ReadValue<Vector2>().x;
-
     }
 
     private bool isGrounded()
@@ -43,7 +42,6 @@ public class PlayerController : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context)
     {
-        
         if(context.performed && isGrounded())
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
@@ -52,15 +50,12 @@ public class PlayerController : MonoBehaviour
 
     public void Dash(InputAction.CallbackContext context)
     {
-
         if (context.performed)
         {
             print("Dash");
             rb.velocity = new Vector2(dashPower + rb.velocity.x, rb.velocity.y);
         }
 
-        
-        
     }
 
     #endregion
