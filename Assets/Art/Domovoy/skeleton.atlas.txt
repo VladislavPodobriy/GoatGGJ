@@ -1,0 +1,97 @@
+
+skeleton.png
+size: 3616,302
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+верхня нога домовий Л
+  rotate: false
+  xy: 2, 2
+  size: 276, 298
+  orig: 276, 298
+  offset: 0, 0
+  index: -1
+верхня нога домовий П
+  rotate: false
+  xy: 280, 2
+  size: 276, 298
+  orig: 276, 298
+  offset: 0, 0
+  index: -1
+вуса 2 домовий
+  rotate: false
+  xy: 558, 2
+  size: 276, 298
+  orig: 276, 298
+  offset: 0, 0
+  index: -1
+вуса домовий
+  rotate: false
+  xy: 836, 2
+  size: 276, 298
+  orig: 276, 298
+  offset: 0, 0
+  index: -1
+вухо домовий Л
+  rotate: false
+  xy: 1114, 2
+  size: 276, 298
+  orig: 276, 298
+  offset: 0, 0
+  index: -1
+вухо домовий П
+  rotate: false
+  xy: 1392, 2
+  size: 276, 298
+  orig: 276, 298
+  offset: 0, 0
+  index: -1
+голова домовий
+  rotate: false
+  xy: 1670, 2
+  size: 276, 298
+  orig: 276, 298
+  offset: 0, 0
+  index: -1
+домовий
+  rotate: false
+  xy: 1948, 2
+  size: 276, 298
+  orig: 276, 298
+  offset: 0, 0
+  index: -1
+нижня нога домовий Л
+  rotate: false
+  xy: 2226, 2
+  size: 276, 298
+  orig: 276, 298
+  offset: 0, 0
+  index: -1
+нижня нога домовий П
+  rotate: false
+  xy: 2504, 2
+  size: 276, 298
+  orig: 276, 298
+  offset: 0, 0
+  index: -1
+ступня домовий Л
+  rotate: false
+  xy: 2782, 2
+  size: 276, 298
+  orig: 276, 298
+  offset: 0, 0
+  index: -1
+ступня домовий П
+  rotate: false
+  xy: 3060, 2
+  size: 276, 298
+  orig: 276, 298
+  offset: 0, 0
+  index: -1
+тулуб домовий
+  rotate: false
+  xy: 3338, 2
+  size: 276, 298
+  orig: 276, 298
+  offset: 0, 0
+  index: -1

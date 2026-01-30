@@ -1,0 +1,131 @@
+
+skeleton.png
+size: 2009,802
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Goat/Flute
+  rotate: false
+  xy: 1507, 215
+  size: 78, 83
+  orig: 78, 83
+  offset: 0, 0
+  index: -1
+Goat/Staff
+  rotate: false
+  xy: 1507, 300
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+Goat/віз з сіном
+  rotate: false
+  xy: 2, 2
+  size: 1128, 798
+  orig: 1128, 798
+  offset: 0, 0
+  index: -1
+Goat/сходи
+  rotate: false
+  xy: 1132, 20
+  size: 373, 780
+  orig: 373, 780
+  offset: 0, 0
+  index: -1
+
+skeleton2.png
+size: 3683,1006
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Goat/Side/ArmL
+  rotate: false
+  xy: 671, 504
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+Goat/Side/ArmR
+  rotate: false
+  xy: 671, 2
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+Goat/Side/Ass
+  rotate: false
+  xy: 1173, 504
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+Goat/Side/Body
+  rotate: false
+  xy: 1173, 2
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+Goat/Side/ElbowL
+  rotate: false
+  xy: 1675, 504
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+Goat/Side/ElbowR
+  rotate: false
+  xy: 1675, 2
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+Goat/Side/Fur
+  rotate: false
+  xy: 2177, 504
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+Goat/Side/Head
+  rotate: false
+  xy: 2177, 2
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+Goat/Side/KneeL
+  rotate: false
+  xy: 2679, 504
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+Goat/Side/KneeR
+  rotate: false
+  xy: 3181, 504
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+Goat/Side/LegL
+  rotate: false
+  xy: 2679, 2
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+Goat/Side/LegR
+  rotate: false
+  xy: 3181, 2
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+Goat/Side/photo_2026-01-27_18-49-07
+  rotate: true
+  xy: 2, 335
+  size: 669, 667
+  orig: 669, 667
+  offset: 0, 0
+  index: -1

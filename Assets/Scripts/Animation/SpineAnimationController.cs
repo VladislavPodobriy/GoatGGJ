@@ -192,6 +192,12 @@ namespace MainScripts.Spine
             _animationStatesInfo.Add(animationState);
             return animationState;
         }
+
+        public void SetSortingLayer(string layer, int order)
+        {
+            _animation.GetComponent<MeshRenderer>().sortingLayerName = layer;
+            _animation.GetComponent<MeshRenderer>().sortingOrder = order;
+        }
         
         //Legacy
         private void OnBecameVisible()
@@ -202,6 +208,11 @@ namespace MainScripts.Spine
         private void OnBecameInvisible()
         {
             OnExitViewport?.Invoke();
+        }
+
+        public void SetSkin()
+        {
+            
         }
     }
 }
