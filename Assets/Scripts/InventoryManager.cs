@@ -37,15 +37,14 @@ public class InventoryManager : MonoBehaviour
 
     void CheckShouldDrop()
     {
-        if (items.Exists(e => e.item.data.isSelected))
-        {
-            Drop(items.Select(e => e.item).First());
-        }
+        var selectedEntry = items.FirstOrDefault(e => e.data.isSelected);
+        if (selectedEntry != null) Drop(selectedEntry.item);
     }
 
     void Drop(Item item)
     {
         item.gameObject.SetActive(true);
+        item.data.isSelected = false;
         item.transform.position = transform.position;
 
         Remove(item);
