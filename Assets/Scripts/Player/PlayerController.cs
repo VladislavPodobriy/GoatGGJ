@@ -46,121 +46,11 @@ public class PlayerController : MonoBehaviour
     
     [HideInInspector]
     public float SlowFactor;
-    
+
     private void Start()
     {
-        _rb = GetComponent<Rigidbody2D>();
-        _collider = GetComponent<BoxCollider2D>();
-        _anim = GetComponentInChildren<SpineAnimationController>();
-        _playerInput = GetComponent<PlayerInput>();
-        _interactiveObjectsInRange = new List<InteractiveObject>();
-        _interactionTip = GetComponentInChildren<InteractionTip>(true);
-        
-        _anim.CreateAnimationState("Idle", true)
-            .AddTransition("Run", false, () => _moveSpeed != 0);
-        
-        _anim.CreateAnimationState("Run", true)
-            .AddTransition("Idle", false, () => _moveSpeed == 0);
-        
-        _anim.CreateAnimationState("Jump_start", false);
-        
-        _anim.CreateAnimationState("Jump_end", false)
-            .AddTransition("Run", false, () => _moveSpeed != 0)
-            .AddTransition("Idle", true, () => _moveSpeed == 0);
-        
-        _anim.CreateAnimationState("Flute", false)
-            .AddTransition("Run", false, () => _moveSpeed != 0)
-            .AddTransitionOnComplete("Idle");
-        
-        _anim.CreateAnimationState("Bird", false)
-            .AddTransition("Run", false, () => _moveSpeed != 0)
-            .AddTransitionOnComplete("Idle");
-        
-        _anim.CreateAnimationState("Topot", false)
-            .AddTransition("Run", false, () => _moveSpeed != 0)
-            .AddTransitionOnComplete("Idle");
-        
-        _anim.CreateAnimationState("HornAttack", false)
-            .AddTransition("Run",  true, () => _moveSpeed != 0)
-            .AddTransition("Idle",true, () => _moveSpeed == 0);
-        
-        _anim.CreateAnimationState("HornAttack_Long", false)
-            .AddTransition("Run",  true, () => _moveSpeed != 0)
-            .AddTransition("Idle",true, () => _moveSpeed == 0);
-        
-        _anim.CreateAnimationState("StaffAttack", false)
-            .AddTransition("Run",  true, () => _moveSpeed != 0)
-            .AddTransitionOnComplete("Idle");
-
-        _anim.CreateAnimationState("FallIntoCart", false)
-            .AddTransitionOnComplete("Idle");
-
-        _anim.CreateAnimationState("Climb", true);
-        
-        _anim.OnAnimationComplete.AddListener(x => 
-        {
-            if (x.StateName == "FallIntoCart")
-            {
-                _anim.SetSortingLayer("Default", 0);
-                ToggleControls(true);
-            }
-            else if (x.StateName == "Jump_start")
-            {
-                _rb.velocity = new Vector2(_rb.velocity.x, jumpingPower);
-            }
-            else if (x.StateName == "HornAttack")
-            {
-                _jumpAllowed = true;
-                _canMove = true;
-            }
-            else if (x.StateName == "HornAttack_Long")
-            {
-                _jumpAllowed = true;
-                _canMove = true;
-            }
-        });
-
-        _anim.OnAnimationEvent.AddListener(x =>
-        {
-            if (x.EventData.Data.Name == "HornAttack_End")
-            {
-                if (_leftBtnPressed)
-                {
-                    _anim.PlayAnimation("HornAttack_Long");
-                    _moveSpeed = 12 * FaceDirection;
-                }
-                
-                List<Collider2D> _hitColliders = new List<Collider2D>();
-                var contactFilter = new ContactFilter2D();
-                contactFilter.useLayerMask = true;
-                contactFilter.layerMask = LayerMask.GetMask("HitBox");
-                Physics2D.OverlapCollider(_hornAttackArea, contactFilter, _hitColliders);
-                if (_hitColliders.Count > 0)
-                {
-                    foreach (var hitCollider in _hitColliders)
-                    {
-                        var hitBox = hitCollider.GetComponent<HitBox>();
-                        if (hitBox != null)
-                            hitBox.Hit();
-                    }
-                }
-            }
-            else if (x.EventData.Data.Name == "HornAttackLong_MoveEnd")
-            {
-                _moveSpeed = 0;
-            }
-        });
-
-        if (_skipSpawn)
-        {
-            _anim.PlayAnimation("Idle");
-            ToggleControls(true);
-            _anim.SetSortingLayer("Default", 0);
-        }
-        else {
-            transform.position = _spawnPoint.position;
-            _anim.PlayAnimation("FallIntoCart");
-        }
+        ComponentSetup();
+        AnimationSetup();
     }
 
     private void Update()
@@ -203,6 +93,132 @@ public class PlayerController : MonoBehaviour
         _rb.velocity = new Vector2(_moveSpeed, _rb.velocity.y);
     }
 
+    #region START_SETUP
+
+    private void ComponentSetup()
+    {
+        _rb = GetComponent<Rigidbody2D>();
+        _collider = GetComponent<BoxCollider2D>();
+        _anim = GetComponentInChildren<SpineAnimationController>();
+        _playerInput = GetComponent<PlayerInput>();
+        _interactiveObjectsInRange = new List<InteractiveObject>();
+        _interactionTip = GetComponentInChildren<InteractionTip>(true);
+    }
+
+    private void AnimationSetup()
+    {
+        _anim.CreateAnimationState("Idle", true)
+            .AddTransition("Run", false, () => _moveSpeed != 0);
+
+        _anim.CreateAnimationState("Run", true)
+            .AddTransition("Idle", false, () => _moveSpeed == 0);
+
+        _anim.CreateAnimationState("Jump_start", false);
+
+        _anim.CreateAnimationState("Jump_end", false)
+            .AddTransition("Run", false, () => _moveSpeed != 0)
+            .AddTransition("Idle", true, () => _moveSpeed == 0);
+
+        _anim.CreateAnimationState("Flute", false)
+            .AddTransition("Run", false, () => _moveSpeed != 0)
+            .AddTransitionOnComplete("Idle");
+
+        _anim.CreateAnimationState("Bird", false)
+            .AddTransition("Run", false, () => _moveSpeed != 0)
+            .AddTransitionOnComplete("Idle");
+
+        _anim.CreateAnimationState("Topot", false)
+            .AddTransition("Run", false, () => _moveSpeed != 0)
+            .AddTransitionOnComplete("Idle");
+
+        _anim.CreateAnimationState("HornAttack", false)
+            .AddTransition("Run", true, () => _moveSpeed != 0)
+            .AddTransition("Idle", true, () => _moveSpeed == 0);
+
+        _anim.CreateAnimationState("HornAttack_Long", false)
+            .AddTransition("Run", true, () => _moveSpeed != 0)
+            .AddTransition("Idle", true, () => _moveSpeed == 0);
+
+        _anim.CreateAnimationState("StaffAttack", false)
+            .AddTransition("Run", true, () => _moveSpeed != 0)
+            .AddTransitionOnComplete("Idle");
+
+        _anim.CreateAnimationState("FallIntoCart", false)
+            .AddTransitionOnComplete("Idle");
+
+        _anim.CreateAnimationState("Climb", true);
+
+        _anim.OnAnimationComplete.AddListener(x =>
+        {
+            if (x.StateName == "FallIntoCart")
+            {
+                _anim.SetSortingLayer("Default", 0);
+                ToggleControls(true);
+            }
+            else if (x.StateName == "Jump_start")
+            {
+                _rb.velocity = new Vector2(_rb.velocity.x, jumpingPower);
+            }
+            else if (x.StateName == "HornAttack")
+            {
+                _jumpAllowed = true;
+                _canMove = true;
+            }
+            else if (x.StateName == "HornAttack_Long")
+            {
+                _jumpAllowed = true;
+                _canMove = true;
+            }
+        });
+
+        _anim.OnAnimationEvent.AddListener(x =>
+        {
+            if (x.EventData.Data.Name == "HornAttack_End")
+            {
+                if (_leftBtnPressed)
+                {
+                    _anim.PlayAnimation("HornAttack_Long");
+                    _moveSpeed = 12 * FaceDirection;
+                }
+
+                List<Collider2D> _hitColliders = new List<Collider2D>();
+                var contactFilter = new ContactFilter2D();
+                contactFilter.useLayerMask = true;
+                contactFilter.layerMask = LayerMask.GetMask("HitBox");
+                Physics2D.OverlapCollider(_hornAttackArea, contactFilter, _hitColliders);
+                if (_hitColliders.Count > 0)
+                {
+                    foreach (var hitCollider in _hitColliders)
+                    {
+                        var hitBox = hitCollider.GetComponent<HitBox>();
+                        if (hitBox != null)
+                            hitBox.Hit();
+                    }
+                }
+            }
+            else if (x.EventData.Data.Name == "HornAttackLong_MoveEnd")
+            {
+                _moveSpeed = 0;
+            }
+        });
+
+        if (_skipSpawn)
+        {
+            _anim.PlayAnimation("Idle");
+            ToggleControls(true);
+            _anim.SetSortingLayer("Default", 0);
+        }
+        else
+        {
+            transform.position = _spawnPoint.position;
+            _anim.PlayAnimation("FallIntoCart");
+        }
+    }
+
+    #endregion
+
+    #region INTERACTIVE_OBJECT_SETTINGS
+
     public void AddInteractiveObject(InteractiveObject interactiveObject)
     {
         if (!_interactiveObjectsInRange.Contains(interactiveObject))
@@ -214,7 +230,9 @@ public class PlayerController : MonoBehaviour
         if (_interactiveObjectsInRange.Contains(interactiveObject))
             _interactiveObjectsInRange.Remove(interactiveObject);
     }
-    
+
+    #endregion
+
     #region PLAYER_CONTROLS
 
     public void ToggleControls(bool value)

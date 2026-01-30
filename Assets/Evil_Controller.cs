@@ -97,8 +97,14 @@ public class Evil_Controller : MonoBehaviour
             .AddTransition(AnimationKeys.Idle, false, () => !Enemy_State.IsPlayerProximity);
 
         _spine.CreateAnimationState(AnimationKeys.Jump, false)
-            .AddTransition(AnimationKeys.Idle, true, () => !Enemy_State.IsMoving)
-            .AddTransition(AnimationKeys.Walk, false, () => Enemy_State.IsMoving);
+            .AddTransition(AnimationKeys.Idle, true, () => !Enemy_State.IsMoving && Enemy_State.IsGrounded)
+            .AddTransition(AnimationKeys.Walk, false, () => Enemy_State.IsMoving && Enemy_State.IsGrounded);
+
+        _spine.OnAnimationEvent.AddListener(x => { 
+            if(x.EventData.Data.Name == "jumpstart") rb.velocity = new Vector2(Mathf.Sign(player.position.x - transform.position.x) * jumpingDistance, jumpingPower);
+            if(x.EventData.Data.Name == "jumpend") rb.velocity = Vector2.zero;
+
+        });
     }
     private void PlayDefaultAnimation()
     {
@@ -147,7 +153,6 @@ public class Evil_Controller : MonoBehaviour
     void Jump(float direction)
     {
         _spine.PlayAnimation(AnimationKeys.Jump, 0);
-        rb.velocity = new Vector2(direction * jumpingDistance, jumpingPower);
     }
 
     void MoveToPlayer()
