@@ -34,7 +34,8 @@ public class PlayerController : MonoBehaviour
     private float _moveSpeed = 0;
     private bool _canMove = true;
 
-    private int _faceDirection = 1;
+    [HideInInspector]
+    public int FaceDirection = 1;
 
     private bool _leftBtnPressed;
     private PlayerInput _playerInput;
@@ -42,6 +43,9 @@ public class PlayerController : MonoBehaviour
     private List<InteractiveObject> _interactiveObjectsInRange;
     private InteractionTip _interactionTip;
     private InteractiveObject _nearestInteractive;
+    
+    [HideInInspector]
+    public float SlowFactor;
     
     private void Start()
     {
@@ -123,7 +127,7 @@ public class PlayerController : MonoBehaviour
                 if (_leftBtnPressed)
                 {
                     _anim.PlayAnimation("HornAttack_Long");
-                    _moveSpeed = 12 * _faceDirection;
+                    _moveSpeed = 12 * FaceDirection;
                 }
                 
                 List<Collider2D> _hitColliders = new List<Collider2D>();
@@ -165,10 +169,10 @@ public class PlayerController : MonoBehaviour
         {
             if (horizontal != 0)
             {
-                _faceDirection = Mathf.FloorToInt(Mathf.Sign(horizontal));
-                _anim.transform.localScale = new Vector3(-_faceDirection * 0.65f, 0.65f, 1);
+                FaceDirection = Mathf.FloorToInt(Mathf.Sign(horizontal));
+                _anim.transform.localScale = new Vector3(-FaceDirection * 0.65f, 0.65f, 1);
             }
-            _moveSpeed = horizontal * speed;
+            _moveSpeed = horizontal * speed * (1 - SlowFactor);
         }
 
         if (_interactiveObjectsInRange.Count > 0)
