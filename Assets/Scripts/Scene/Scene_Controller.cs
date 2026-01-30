@@ -18,6 +18,7 @@ public class Scene_Controller : MonoBehaviour
     #region SCENE_GATE_TRIGGER
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (!collision.CompareTag("Player")) return;
         SetOverlayState(true);
         TeleportToLevel(spawnPoint, collision.gameObject);
         SetCameraBounds(cameraBoundsObj, cameraConfiner);
