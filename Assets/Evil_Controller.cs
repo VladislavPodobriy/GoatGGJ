@@ -45,6 +45,9 @@ public class Evil_Controller : MonoBehaviour
     [Header("AI Settings")]
     [SerializeField] float speed;
     [SerializeField] float jumpingPower;
+    [SerializeField] float jumpingChance;
+    [SerializeField] float jumpingDistance;
+    [SerializeField] float jumpRange;
     [SerializeField] float idleChangeTime = 2f;
     [SerializeField] float minXBound = -45f;
     [SerializeField] float maxXBound = -30f;
@@ -56,9 +59,7 @@ public class Evil_Controller : MonoBehaviour
     [SerializeField] LayerMask groundLayer;
     [SerializeField] Transform groundCheck;
 
-    [Header("Player Object")]
-    [SerializeField] Transform player;
-    
+    private Transform player;
     private Rigidbody2D rb;
     private float distanceToPlayer;
     private float directionToPlayer;
@@ -66,6 +67,7 @@ public class Evil_Controller : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        player = FindAnyObjectByType<PlayerController>().transform;
 
         InvokeRepeating(nameof(PickRandomDirection), 0f, idleChangeTime);
 
@@ -80,11 +82,6 @@ public class Evil_Controller : MonoBehaviour
 
     #region Animation_Settings
 
-    private void PlayDefaultAnimation()
-    {
-        _spine.PlayAnimation(AnimationKeys.Idle, 0);
-    }
-
     private void AnimationSetup()
     {
         _spine.CreateAnimationState(AnimationKeys.Idle, true)
@@ -98,8 +95,15 @@ public class Evil_Controller : MonoBehaviour
         _spine.CreateAnimationState(AnimationKeys.Attack, true)
             .AddTransition(AnimationKeys.Walk, false, () => !Enemy_State.IsPlayerClose)
             .AddTransition(AnimationKeys.Idle, false, () => !Enemy_State.IsPlayerProximity);
-    }
 
+        _spine.CreateAnimationState(AnimationKeys.Jump, false)
+            .AddTransition(AnimationKeys.Idle, true, () => !Enemy_State.IsMoving)
+            .AddTransition(AnimationKeys.Walk, false, () => Enemy_State.IsMoving);
+    }
+    private void PlayDefaultAnimation()
+    {
+        _spine.PlayAnimation(AnimationKeys.Idle, 0);
+    }
     #endregion
 
     #region AI_Control
@@ -140,24 +144,22 @@ public class Evil_Controller : MonoBehaviour
         }
     }
 
-    void Jump()
+    void Jump(float direction)
     {
-        rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
+        _spine.PlayAnimation(AnimationKeys.Jump, 0);
+        rb.velocity = new Vector2(direction * jumpingDistance, jumpingPower);
     }
 
     void MoveToPlayer()
     {
         directionToPlayer = Mathf.Sign(player.position.x - transform.position.x);
 
-        if (!Enemy_State.ShouldStopMoving)
+        print("Enemy_Grounded" + Enemy_State.IsGrounded);
+        if (!Enemy_State.ShouldStopMoving && Enemy_State.IsGrounded)
         {
-            Move(directionToPlayer);
-        }
+            if(Random.value < jumpingChance && distanceToPlayer < jumpRange) Jump(directionToPlayer);
+            else Move(directionToPlayer);
 
-        if(!Enemy_State.ShouldStopMoving && !Enemy_State.IsMoving && Enemy_State.IsGrounded)
-        {
-            print("I should keep moving && but I can't move, && my feet are touching the ground => so I should Jump.");
-            Jump();
         }
     }
 
