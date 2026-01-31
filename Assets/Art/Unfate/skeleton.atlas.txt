@@ -1,0 +1,55 @@
+
+skeleton.png
+size: 3718,2005
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+волосся недоля
+  rotate: true
+  xy: 2, 931
+  size: 1072, 927
+  orig: 1072, 927
+  offset: 0, 0
+  index: -1
+голова недоля
+  rotate: false
+  xy: 2, 2
+  size: 1072, 927
+  orig: 1072, 927
+  offset: 0, 0
+  index: -1
+недоля
+  rotate: true
+  xy: 931, 931
+  size: 1072, 927
+  orig: 1072, 927
+  offset: 0, 0
+  index: -1
+подол недоля
+  rotate: false
+  xy: 1076, 2
+  size: 1072, 927
+  orig: 1072, 927
+  offset: 0, 0
+  index: -1
+тулуб верх недоля
+  rotate: true
+  xy: 1860, 931
+  size: 1072, 927
+  orig: 1072, 927
+  offset: 0, 0
+  index: -1
+тулуб низ недоля
+  rotate: false
+  xy: 2150, 2
+  size: 1072, 927
+  orig: 1072, 927
+  offset: 0, 0
+  index: -1
+тінь недоля
+  rotate: true
+  xy: 2789, 931
+  size: 1072, 927
+  orig: 1072, 927
+  offset: 0, 0
+  index: -1

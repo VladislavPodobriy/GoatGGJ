@@ -1,0 +1,34 @@
+
+skeleton.png
+size: 3718,1076
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+доля
+  rotate: true
+  xy: 2, 2
+  size: 1072, 927
+  orig: 1072, 927
+  offset: 0, 0
+  index: -1
+кисть доля
+  rotate: true
+  xy: 931, 2
+  size: 1072, 927
+  orig: 1072, 927
+  offset: 0, 0
+  index: -1
+передпліччя доля
+  rotate: true
+  xy: 1860, 2
+  size: 1072, 927
+  orig: 1072, 927
+  offset: 0, 0
+  index: -1
+тіло доля
+  rotate: true
+  xy: 2789, 2
+  size: 1072, 927
+  orig: 1072, 927
+  offset: 0, 0
+  index: -1

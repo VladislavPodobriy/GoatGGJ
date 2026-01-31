@@ -46,6 +46,8 @@ public class PlayerController : MonoBehaviour
     
     [HideInInspector]
     public float SlowFactor;
+
+    public bool LongAttackAllowed = true;
     
     private void Start()
     {
@@ -124,7 +126,7 @@ public class PlayerController : MonoBehaviour
         {
             if (x.EventData.Data.Name == "HornAttack_End")
             {
-                if (_leftBtnPressed)
+                if (_leftBtnPressed && LongAttackAllowed)
                 {
                     _anim.PlayAnimation("HornAttack_Long");
                     _moveSpeed = 12 * FaceDirection;
@@ -159,6 +161,7 @@ public class PlayerController : MonoBehaviour
         }
         else {
             transform.position = _spawnPoint.position;
+            _anim.SetSortingLayer("Back", 9);
             _anim.PlayAnimation("FallIntoCart");
         }
     }

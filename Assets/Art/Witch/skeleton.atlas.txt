@@ -1,0 +1,153 @@
+
+skeleton.png
+size: 3180,1235
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+1 лихо
+  rotate: true
+  xy: 2, 824
+  size: 409, 452
+  orig: 409, 452
+  offset: 0, 0
+  index: -1
+2 лихо
+  rotate: true
+  xy: 456, 824
+  size: 409, 452
+  orig: 409, 452
+  offset: 0, 0
+  index: -1
+голова 1 лихо
+  rotate: true
+  xy: 910, 824
+  size: 409, 452
+  orig: 409, 452
+  offset: 0, 0
+  index: -1
+голова 2 лихо
+  rotate: true
+  xy: 1364, 824
+  size: 409, 452
+  orig: 409, 452
+  offset: 0, 0
+  index: -1
+лихо
+  rotate: true
+  xy: 1818, 824
+  size: 409, 452
+  orig: 409, 452
+  offset: 0, 0
+  index: -1
+намисто Лихо.
+  rotate: true
+  xy: 2272, 824
+  size: 409, 452
+  orig: 409, 452
+  offset: 0, 0
+  index: -1
+намисто світиться Лихо.
+  rotate: true
+  xy: 2726, 824
+  size: 409, 452
+  orig: 409, 452
+  offset: 0, 0
+  index: -1
+нога верх Л Лихо.
+  rotate: true
+  xy: 2, 413
+  size: 409, 452
+  orig: 409, 452
+  offset: 0, 0
+  index: -1
+нога верх П Лихо.
+  rotate: true
+  xy: 456, 413
+  size: 409, 452
+  orig: 409, 452
+  offset: 0, 0
+  index: -1
+нога низ Л Лихо
+  rotate: true
+  xy: 910, 413
+  size: 409, 452
+  orig: 409, 452
+  offset: 0, 0
+  index: -1
+нога низ П Лихо.
+  rotate: true
+  xy: 1364, 413
+  size: 409, 452
+  orig: 409, 452
+  offset: 0, 0
+  index: -1
+плахта1 Лихо.
+  rotate: true
+  xy: 1818, 413
+  size: 409, 452
+  orig: 409, 452
+  offset: 0, 0
+  index: -1
+плахта2 Лихо.
+  rotate: true
+  xy: 2272, 413
+  size: 409, 452
+  orig: 409, 452
+  offset: 0, 0
+  index: -1
+плахта3 Лихо.
+  rotate: true
+  xy: 2726, 413
+  size: 409, 452
+  orig: 409, 452
+  offset: 0, 0
+  index: -1
+плахта4 Лихо.
+  rotate: true
+  xy: 2, 2
+  size: 409, 452
+  orig: 409, 452
+  offset: 0, 0
+  index: -1
+пояс Лихо.
+  rotate: true
+  xy: 456, 2
+  size: 409, 452
+  orig: 409, 452
+  offset: 0, 0
+  index: -1
+рука передпліччя Л Лихо.
+  rotate: true
+  xy: 910, 2
+  size: 409, 452
+  orig: 409, 452
+  offset: 0, 0
+  index: -1
+рука передпліччя П Лихо.
+  rotate: true
+  xy: 1364, 2
+  size: 409, 452
+  orig: 409, 452
+  offset: 0, 0
+  index: -1
+рука плече Л Лихо.
+  rotate: true
+  xy: 1818, 2
+  size: 409, 452
+  orig: 409, 452
+  offset: 0, 0
+  index: -1
+рука плече П Лихо
+  rotate: true
+  xy: 2272, 2
+  size: 409, 452
+  orig: 409, 452
+  offset: 0, 0
+  index: -1
+тулуб Лихо.
+  rotate: true
+  xy: 2726, 2
+  size: 409, 452
+  orig: 409, 452
+  offset: 0, 0
+  index: -1
