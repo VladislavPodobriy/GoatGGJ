@@ -22,7 +22,6 @@ public class Paralax : MonoBehaviour
             var distance = _virtualCamTransform.position.x - _startPos.x;
             transform.position = new Vector3(_startPos.x + (distance * _factor), _startPos.y, 0);
         }
-
     }
 
     private bool IsCamMoving()
