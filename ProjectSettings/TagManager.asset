@@ -7,6 +7,8 @@ TagManager:
   - Wall
   - Enemy
   - HitBox
+  - Inventory_Slot_Icon
+  - Inventory_Slot_Text
   layers:
   - Default
   - TransparentFX

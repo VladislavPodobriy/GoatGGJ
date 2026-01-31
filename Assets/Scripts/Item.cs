@@ -6,11 +6,18 @@ using UnityEngine.UI;
 [System.Serializable]
 public class ItemData
 {
-    public string name;
+    public string title;
     public string description;
     public int id;
     public Sprite icon;
     public bool isSelected;
+}
+
+[System.Serializable]
+public class ItemEntry
+{
+    public Item item;
+    public ItemData data;
 }
 public class Item : InteractiveObject
 {
@@ -19,13 +26,6 @@ public class Item : InteractiveObject
     {
         FindObjectOfType<InventoryManager>().Add(this);
     }
-}
-
-[System.Serializable]
-public class ItemEntry
-{
-    public Item item;
-    public ItemData data;
 }
 
 
