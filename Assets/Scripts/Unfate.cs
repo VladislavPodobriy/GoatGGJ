@@ -73,7 +73,7 @@ public class Unfate : MonoBehaviour
             }
         });
         
-        _hitBox.OnHit.AddListener(() =>
+        _hitBox.OnHit.AddListener((x) =>
         {
             _anim.PlayAnimation("Damage", 1);
             _health--;

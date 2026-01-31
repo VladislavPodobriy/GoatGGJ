@@ -8,6 +8,8 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     [Header("Player Settings")]
+    [SerializeField] private int _health;
+    [SerializeField] private int _heal;
     [SerializeField] float speed;
     [SerializeField] float jumpingPower;
     [SerializeField] float dashPower;
@@ -20,12 +22,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool _skipSpawn;
 
     [SerializeField] private Collider2D _hornAttackArea;
+    [SerializeField] private Transform _staffParticlesOrigin;
+    [SerializeField] private ParticleSystem _staffParticlesPrefab;
     
     private SpineAnimationController _anim;
     
     private float horizontal;
     private Rigidbody2D _rb;
     private BoxCollider2D _collider;
+    private HealthBar _healthBar;
     
     private bool _isJump;
     private bool _isGrounded;
@@ -48,7 +53,8 @@ public class PlayerController : MonoBehaviour
     public float SlowFactor;
 	
     public bool LongAttackAllowed = true;
-		
+    private bool _inv = false;
+    
     private void Start()
     {
         ComponentSetup();
@@ -105,6 +111,7 @@ public class PlayerController : MonoBehaviour
         _playerInput = GetComponent<PlayerInput>();
         _interactiveObjectsInRange = new List<InteractiveObject>();
         _interactionTip = GetComponentInChildren<InteractionTip>(true);
+        _healthBar = FindObjectOfType<HealthBar>();
     }
 
     private void AnimationSetup()
@@ -150,6 +157,11 @@ public class PlayerController : MonoBehaviour
 
         _anim.CreateAnimationState("Climb", true);
 
+        _anim.CreateAnimationState("Inv", false);
+        
+        _anim.CreateAnimationState("Damage", false)
+            .AddTransitionOnComplete("Idle");
+        
         _anim.OnAnimationComplete.AddListener(x =>
         {
             if (x.StateName == "FallIntoCart")
@@ -170,6 +182,21 @@ public class PlayerController : MonoBehaviour
             {
                 _jumpAllowed = true;
                 _canMove = true;
+            }
+            else if (x.StateName == "Damage")
+            {
+                ToggleControls(true);
+            }
+            else if (x.StateName == "Inv")
+            {
+                _inv = false;
+            }
+            else if (x.StateName == "Flute")
+            {
+                _health = 5;
+                _heal--;
+                _healthBar.UpdateHealth(_health);
+                _healthBar.UpdateHeal(_heal);
             }
         });
 
@@ -194,13 +221,18 @@ public class PlayerController : MonoBehaviour
                     {
                         var hitBox = hitCollider.GetComponent<HitBox>();
                         if (hitBox != null)
-                            hitBox.Hit();
+                            hitBox.Hit(HitType.Horn);
                     }
                 }
             }
             else if (x.EventData.Data.Name == "HornAttackLong_MoveEnd")
             {
                 _moveSpeed = 0;
+            }
+            else if (x.EventData.Data.Name == "staffattack")
+            {
+                var instance = Instantiate(_staffParticlesPrefab, _staffParticlesOrigin.position, Quaternion.identity);
+                instance.transform.localScale = new Vector3(FaceDirection, 1, 1);
             }
         });
 
@@ -219,6 +251,22 @@ public class PlayerController : MonoBehaviour
 
     #endregion
 
+    public void GetDamage()
+    {
+        if (_inv)
+            return;
+        _health--;
+        _healthBar.UpdateHealth(_health);
+        ToggleControls(false);
+        _inv = true;
+        _anim.PlayAnimation("Inv", 1);
+        _anim.PlayAnimation("Damage");
+        if (_health == 0)
+        {
+            //Game Over
+        }
+    }
+    
     #region INTERACTIVE_OBJECT_SETTINGS
 
     public void AddInteractiveObject(InteractiveObject interactiveObject)

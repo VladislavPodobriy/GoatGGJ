@@ -372,6 +372,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Tip: Pick Up
+  Collider: {fileID: 0}
+  IsInteractable: 1
   data:
     name: Wheel
     description: This is a Wheel
@@ -844,6 +846,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Tip: Pick Up
+  Collider: {fileID: 0}
+  IsInteractable: 1
   data:
     name: Wheel
     description: This is a Wheel
@@ -2837,6 +2841,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Tip: Talk
+  Collider: {fileID: 0}
+  IsInteractable: 1
+  OnComplete:
+    m_PersistentCalls:
+      m_Calls: []
   textUI: {fileID: 1038864206}
   speakerNameUI: {fileID: 2078926226}
   dialogueCanvas: {fileID: 1851641742}
@@ -3085,6 +3094,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Tip: Pick Up
+  Collider: {fileID: 0}
+  IsInteractable: 1
   data:
     name: Box
     description: This is a Box

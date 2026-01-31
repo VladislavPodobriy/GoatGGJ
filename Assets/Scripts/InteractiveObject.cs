@@ -4,6 +4,7 @@ public abstract class InteractiveObject : MonoBehaviour
 {
     public string Tip;
     public Collider2D Collider;
+    public bool IsInteractable = true;
     
     public abstract void Interact();
     
@@ -12,7 +13,8 @@ public abstract class InteractiveObject : MonoBehaviour
         if (col.CompareTag("Player"))
         {
             var player = col.GetComponent<PlayerController>();
-            player.AddInteractiveObject(this);
+            if (IsInteractable)
+                player.AddInteractiveObject(this);
         }
     }
     
@@ -28,5 +30,6 @@ public abstract class InteractiveObject : MonoBehaviour
     public void ToggleInteractable(bool value)
     {
         Collider.enabled = value;
+        IsInteractable = value;
     }
 }

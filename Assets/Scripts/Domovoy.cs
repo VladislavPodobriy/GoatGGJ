@@ -68,7 +68,7 @@ public class Domovoy : MonoBehaviour
                 _isJumping = false;
         });
         
-        _standHitBox.OnHit.AddListener(() =>
+        _standHitBox.OnHit.AddListener((x) =>
         {
             _anim.PlayAnimation("Damage", 1);
             _hp -= 1;
