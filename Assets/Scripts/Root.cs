@@ -16,7 +16,7 @@ public class Root : MonoBehaviour
             if (x == HitType.Staff)
             {
                 OnDead.Invoke();
-                if (ConnectedRoot == null)
+                if (ConnectedRoot != null)
                     Destroy(ConnectedRoot.gameObject);
                 if (Bird != null)
                     Bird.ToggleInteractable(true);

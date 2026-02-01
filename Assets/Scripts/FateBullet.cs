@@ -23,7 +23,7 @@ public class FateBullet : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D other)
     {
         _rb.bodyType = RigidbodyType2D.Static;
-        StartCoroutine(DestroyAfterTime(3f));
+        StartCoroutine(DestroyAfterTime(2f));
     }
 
     private IEnumerator DestroyAfterTime(float time)

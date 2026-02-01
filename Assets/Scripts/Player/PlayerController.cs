@@ -4,7 +4,8 @@ using System.Linq;
 using MainScripts.Spine;
 using UnityEngine;
 using UnityEngine.InputSystem;
-    
+using UnityEngine.SceneManagement;
+
 public class PlayerController : MonoBehaviour
 {
     [Header("Player Settings")]
@@ -14,6 +15,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float speed;
     [SerializeField] float jumpingPower;
     [SerializeField] float dashPower;
+    [SerializeField] private GameObject menu;
+    [SerializeField] private Transform goatPlace;
+    [SerializeField] private Transform didkoPlace;
     
     [Header("Grounding")]
     [SerializeField] LayerMask groundLayer;
@@ -60,7 +64,8 @@ public class PlayerController : MonoBehaviour
 	
     public bool LongAttackAllowed = true;
     private bool _inv = false;
-
+    private DialogSystem _finalDialog;
+    
     private void Awake()
     {
         ComponentSetup();
@@ -73,6 +78,15 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            menu.gameObject.SetActive(!menu.gameObject.activeSelf);
+            if (menu.gameObject.activeSelf)
+                Time.timeScale = 0;
+            else
+                Time.timeScale = 1;
+        }
+        
         if (_canMove)
         {
             if (horizontal != 0)
@@ -111,6 +125,44 @@ public class PlayerController : MonoBehaviour
         _rb.velocity = new Vector2(_moveSpeed, _rb.velocity.y);
     }
 
+    public void GoToMenu()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(0);
+    }
+
+    public int GetHealth()
+    {
+        return _health;
+    }
+
+    public void ShowFinalDialog(DialogSystem finalDialog)
+    {
+        //Final epic scene setup
+        var didko = FindObjectOfType<Didko>();
+        transform.position = goatPlace.transform.position;
+        didko.transform.position = didkoPlace.transform.position;
+        FaceDirection = 1;
+        _anim.transform.localScale = new Vector3(-FaceDirection * 0.65f, 0.65f, 1);
+        didko.SetFaceDirection(-1);
+        didko.Die();
+        
+        _anim.PlayAnimation("StaffAttack");
+        _finalDialog = finalDialog;
+    }
+
+    private IEnumerator ShowFinalDialogRoutine()
+    {
+        yield return new WaitForSeconds(0.8f);
+        _finalDialog.OnComplete.AddListener(() =>
+        {
+            Time.timeScale = 1;
+            SceneManager.LoadScene(3);
+        });
+        _finalDialog.Activate();
+        Time.timeScale = 0;
+    }
+    
     #region START_SETUP
 
     private void ComponentSetup()
@@ -175,6 +227,8 @@ public class PlayerController : MonoBehaviour
         
         _anim.CreateAnimationState("Damage", false)
             .AddTransitionOnComplete("Idle");
+
+        _anim.CreateAnimationState("Die", false);
         
         _anim.OnAnimationComplete.AddListener(x =>
         {
@@ -245,6 +299,11 @@ public class PlayerController : MonoBehaviour
             }
             else if (x.EventData.Data.Name == "staffattack")
             {
+                if (_finalDialog != null)
+                {
+                    StartCoroutine(ShowFinalDialogRoutine());
+                }
+                
                 var instance = Instantiate(_staffParticlesPrefab, _staffParticlesOrigin.position, Quaternion.identity);
                 instance.transform.localScale = new Vector3(FaceDirection, 1, 1);
             }
@@ -263,9 +322,19 @@ public class PlayerController : MonoBehaviour
             _anim.SetSortingLayer("Back", 9);
         }
     }
-
+    
     #endregion
 
+    public void Die()
+    {
+        _anim.PlayAnimation("Die");
+    }
+
+    public void Live()
+    {
+        _anim.PlayAnimation("Idle");
+    }
+    
     public void GetDamage()
     {
         if (_inv)
@@ -279,7 +348,7 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(DamageRoutine());
         if (_health == 0)
         {
-            //Game Over
+            SceneManager.LoadScene(0);
         }
     }
 
@@ -369,8 +438,6 @@ public class PlayerController : MonoBehaviour
     
     public void Flute(InputAction.CallbackContext context)
     {
-        if (_heal <= 0)
-            return;
         if (context.performed)
         {
             if (_isGrounded)
@@ -379,7 +446,7 @@ public class PlayerController : MonoBehaviour
                 {
                     _nearestInteractive.Interact();
                 }
-                else
+                else if (_heal > 0)
                 {
                     horizontal = 0;
                     _anim.PlayAnimation("Flute");

@@ -44,6 +44,7 @@ public class Witch : MonoBehaviour
     private float _suckTimeout;
     
     private bool _isSuccess;
+    private bool _active;
     
     private void Start()
     {
@@ -63,6 +64,8 @@ public class Witch : MonoBehaviour
         
         _hitBox.OnHit.AddListener((x) =>
         {
+            if (!_active)
+                return;
             if (x == HitType.Fear)
                 return;
             _health -= 1;
@@ -86,6 +89,7 @@ public class Witch : MonoBehaviour
         
         _initialTrigger.OnTriggerEnter.AddListener(() =>
         {
+            _active = true;
             _initialTrigger.gameObject.SetActive(false);
             _startDialog.Activate();
         });
@@ -98,20 +102,23 @@ public class Witch : MonoBehaviour
     
     private void Update()
     {
-        _attackTimer += Time.deltaTime;
-        _suckTimer += Time.deltaTime;
+        if (_active)
+        {
+            _attackTimer += Time.deltaTime;
+            _suckTimer += Time.deltaTime;
         
-        var playerPos = _player.transform.position + new Vector3(0, 0.5f, 0);
-        var pos = transform.position + new Vector3(0, 1, 0);
+            var playerPos = _player.transform.position + new Vector3(0, 0.5f, 0);
+            var pos = transform.position + new Vector3(0, 1, 0);
         
-        _particleSystem.position = playerPos;
+            _particleSystem.position = playerPos;
         
-        _spline.Anchors[1].Anchor.position = playerPos;
-        _spline.Anchors[1].InTangent.position = playerPos + (pos - playerPos).normalized + new Vector3(0, 1f, 0);
-        _spline.Anchors[0].Anchor.position = pos;
-        _spline.Anchors[0].OutTangent.position = pos + (playerPos - pos).normalized + new Vector3(0, 1f, 0);;
-        _spline.Anchors[1].Changed = true;
-        _spline.Anchors[0].Changed = true;
+            _spline.Anchors[1].Anchor.position = playerPos;
+            _spline.Anchors[1].InTangent.position = playerPos + (pos - playerPos).normalized + new Vector3(0, 1f, 0);
+            _spline.Anchors[0].Anchor.position = pos;
+            _spline.Anchors[0].OutTangent.position = pos + (playerPos - pos).normalized + new Vector3(0, 1f, 0);;
+            _spline.Anchors[1].Changed = true;
+            _spline.Anchors[0].Changed = true;
+        }
     }
     
     public void StartBattle()

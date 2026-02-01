@@ -1,14 +1,18 @@
 using System.Collections;
 using MainScripts.Spine;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class Didko : MonoBehaviour
 {
     [SerializeField] private DialogSystem _startDialog;
-    [SerializeField] private DialogSystem _finalDialog;
+    [SerializeField] private DialogSystem _deadDialog;
+    [SerializeField] private DialogSystem _fakeDialog;
     [SerializeField] private DamageArea _dashDamageArea;
     [SerializeField] private Transform _bombOrigin;
     [SerializeField] private Rigidbody2D _bombPrefab;
+    [FormerlySerializedAs("_clickeR")] [FormerlySerializedAs("_clicked")] [SerializeField] private Clicker _clicker;
     
     [SerializeField] private float _hp;
     [SerializeField] private Vector2 _jumpVelocityRange;
@@ -30,8 +34,9 @@ public class Didko : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         _anim = GetComponentInChildren<SpineAnimationController>();
         _player = FindObjectOfType<PlayerController>();
-        _hitBox = GetComponentInChildren<HitBox>();
+        _hitBox = GetComponentInChildren<HitBox>(true);
         
+        _anim.CreateAnimationState("Die", false);
         _anim.CreateAnimationState("Damage", false);
         _anim.CreateAnimationState("Idle", true);
         _anim.CreateAnimationState("DashAttack", false)
@@ -92,12 +97,13 @@ public class Didko : MonoBehaviour
             if (x == HitType.Fear)
                 return;
             _hp--;
-            if (_hp <= 0)
+            if (_hp <= 5)
             {
                 StopAllCoroutines();
                 _rb.velocity = Vector2.zero;
                 _anim.PlayAnimation("Idle");
-                _finalDialog.Activate();
+                _hitBox.gameObject.SetActive(false);
+                _fakeDialog.Activate();
             }
             else
             {
@@ -107,12 +113,20 @@ public class Didko : MonoBehaviour
         
         _startDialog.OnComplete.AddListener(() =>
         {
+            _hitBox.gameObject.SetActive(true);
             StartCoroutine(StateRoutine());
         });
-
-        _finalDialog.OnComplete.AddListener(() =>
+        
+        _deadDialog.OnComplete.AddListener(() =>
         {
-            Destroy(gameObject);
+            _player.Die();
+            _clicker.Activate();
+        });
+        
+        _fakeDialog.OnComplete.AddListener(() =>
+        {
+            _player.Die();
+            _clicker.Activate();
         });
         
         _startScale = _anim.transform.localScale.x;
@@ -120,6 +134,23 @@ public class Didko : MonoBehaviour
         _startDialog.Activate();
     }
 
+    private void Update()
+    {
+        if (_player.GetHealth() < 2)
+        {
+            StopAllCoroutines();
+            _rb.velocity = Vector2.zero;
+            _anim.PlayAnimation("Idle");
+            _hitBox.gameObject.SetActive(false);
+            _deadDialog.Activate();
+        }
+    }
+
+    public void Die()
+    {
+        _anim.PlayAnimation("Die");
+    }
+    
     private IEnumerator StateRoutine()
     {
         while (true)
@@ -175,7 +206,7 @@ public class Didko : MonoBehaviour
             SetFaceDirection(1);
     }
 
-    private void SetFaceDirection(int direction)
+    public void SetFaceDirection(int direction)
     {
         _faceDirection = direction;
         var scale = _anim.transform.localScale;
