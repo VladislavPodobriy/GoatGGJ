@@ -2836,7 +2836,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5553437679626156698, guid: 942c9d0387a7a2640a159efa900f572f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6196244540906339739, guid: 942c9d0387a7a2640a159efa900f572f, type: 3}
       propertyPath: m_Sprite
@@ -12182,7 +12182,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ConfineMode: 0
   m_BoundingVolume: {fileID: 0}
-  m_BoundingShape2D: {fileID: 742578207}
+  m_BoundingShape2D: {fileID: 1468994944}
   m_ConfineScreenEdges: 1
   m_Damping: 0
 --- !u!1 &552356524
@@ -25237,11 +25237,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 595405537540171630, guid: aa133b0f61ff05049bc9af595744abab, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.588617
+      value: -2.5773094
       objectReference: {fileID: 0}
     - target: {fileID: 595405537540171630, guid: aa133b0f61ff05049bc9af595744abab, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.13899231
+      value: 30.861004
       objectReference: {fileID: 0}
     - target: {fileID: 595405537540171630, guid: aa133b0f61ff05049bc9af595744abab, type: 3}
       propertyPath: m_LocalPosition.z
