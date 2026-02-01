@@ -20,16 +20,19 @@ namespace MainScripts.Spine
         
         public void TryAddSkin(string skinName)
         {
-            var existingSkin = _currentSkins.FirstOrDefault(x => x.Name == skinName);
+            var skin = _skeleton.Skeleton.Data.FindSkin(skinName);
+            _skeleton.Skeleton.SetSkin(skin);
+            
+            /*var existingSkin = _currentSkins.FirstOrDefault(x => x.Name == skinName);
             if (existingSkin != null)
                 return;
             
-            var skin = _skeleton.Skeleton.Data.FindSkin(skinName);
+           
             if (skin != null)
             {
                 _currentSkins.Add(skin);
                 AssignCombinedSkin();
-            }
+            }*/
         }
         
         public void RemoveSkin(string skinName)
