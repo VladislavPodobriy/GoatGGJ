@@ -10,6 +10,8 @@ public class DialogueLine
 {
     public bool isNPC;
     public string text;
+    public string text_ua;
+    public string text_en;
 }
 
 public class DialogSystem : InteractiveObject
@@ -32,7 +34,7 @@ public class DialogSystem : InteractiveObject
     private bool isActive;
     private PlayerController _player;
     private bool _canClick = false;
-    
+
     public override void Interact()
     {
         Activate();
@@ -50,7 +52,8 @@ public class DialogSystem : InteractiveObject
     private void ShowLine()
     {
         DialogueLine line = dialogue[dialogueStep];
-        textUI.SetText(line.text);
+        string text = Language.Instance.language == Language.Instance.ukrainian ? line.text_ua : line.text_en;
+        textUI.SetText(text);
         UpdateSpeaker(line.isNPC);
     }
 

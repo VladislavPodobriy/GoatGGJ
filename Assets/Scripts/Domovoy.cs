@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using MainScripts.Spine;
 using UnityEngine;
 
@@ -39,7 +40,37 @@ public class Domovoy : MonoBehaviour
     
     [SerializeField] 
     private int _standHp = 5;
-    
+
+    List<string> text;
+
+    List<string> ua = new List<string>
+    {
+        "Хррр...",
+        "Не набридай...",
+        "Коли вже підеш?",
+        "Не шуми...",
+        "Залиш мене в спокої",
+        "ДОСИТЬ ШУМІТИ!!!",
+        "Начувайся!",
+        "Як же ти мене дратуєш!",
+    };
+    List<string> en = new List<string>
+    {
+        "Hrrr...Zzz...Hrrr...",
+        "Don't annoy...",
+        "When will you go?",
+        "Don't make noise...",
+        "Live me be in peace",
+        "THAT'S ENOUGH NOISE!!!",
+        "Watch yourself!",
+        "You’re so annoying!",
+    };
+
+    private void Awake()
+    {
+        text = Language.Instance.language == Language.Instance.ukrainian ? ua : en;
+    }
+
     void Start()
     {
         _anim = GetComponentInChildren<SpineAnimationController>();
@@ -159,27 +190,27 @@ public class Domovoy : MonoBehaviour
             if (chance < 15)
             {
                 TalkTextController.SpawnTalkText(transform.position + new Vector3(0, 3, 0), 
-                    "Хррр...");
+                    text[0]);
             }
             else if (chance < 40)
             {
                 TalkTextController.SpawnTalkText(transform.position + new Vector3(0, 3, 0), 
-                    "Не набридай...");
+                    text[1]);
             }
             else if (chance < 65)
             {
                 TalkTextController.SpawnTalkText(transform.position + new Vector3(0, 3, 0), 
-                    "Коли вже підеш?");
+                    text[2]);
             }
             else if (chance < 85)
             {
                 TalkTextController.SpawnTalkText(transform.position + new Vector3(0, 3, 0), 
-                    "Не шуми...");
+                    text[3]);
             }
             else
             {
                 TalkTextController.SpawnTalkText(transform.position + new Vector3(0, 3, 0), 
-                    "Залиш мене в спокої");
+                    text[4]);
             }
         }
     }
@@ -201,12 +232,12 @@ public class Domovoy : MonoBehaviour
             if (chance < 15)
             {
                 TalkTextController.SpawnTalkText(transform.position + new Vector3(0, 3, 0), 
-                    "ДОСИТЬ ШУМІТИ!!!");
+                    text[5]);
             }
             else if (chance < 30)
             {
                 TalkTextController.SpawnTalkText(transform.position + new Vector3(0, 3, 0), 
-                    "Начувайся!");
+                    text[6]);
             }
             
             var timer = 0f;
@@ -248,12 +279,12 @@ public class Domovoy : MonoBehaviour
             if (chance < 15)
             {
                 TalkTextController.SpawnTalkText(transform.position + new Vector3(0, 3, 0), 
-                    "Як же ти мене дратуєш!");
+                    text[7]);
             }
             else if (chance < 30)
             {
                 TalkTextController.SpawnTalkText(transform.position + new Vector3(0, 3, 0), 
-                    "Хррр...");
+                    text[0]);
             }
             
             var timer = 0f;

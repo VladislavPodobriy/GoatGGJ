@@ -1,12 +1,18 @@
+using MainScripts.Spine;
+using Pixelplacement;
+using Spine;
 using System.Collections;
 using System.Collections.Generic;
-using MainScripts.Spine;
+using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.ShaderData;
 using Random = UnityEngine.Random;
 
 public class People : InteractiveObject
 {
-    private List<string> lines = new List<string>
+    private List<string> lines;
+
+    public readonly List<string> ua = new List<string>
     {
         "Коляд-коляд колядниця, добра з медом паляниця!",
         "Коляда іде, всім дари везе!",
@@ -15,10 +21,26 @@ public class People : InteractiveObject
         "Коляд-коляд-колядин, я у батька один..."
     };
 
+    public readonly List<string> en = new List<string>
+    {
+        "Kolyad-kolyad, little carol, a good flatbread with honey sweet!",
+        "Kolyada is coming, bringing gifts for everyone!",
+        "Kolyad-kolyad-kolyada, may misfortune pass you by!",
+        "Holy Evening, off I go. There sits a hare upon the ice…",
+        "Kolyad-kolyad-kolyadyn, I’m my father’s only son…"
+    };
+
+
     public DialogSystem _noHat;
     public DialogSystem _hat;
     public Item _bucket;
     public SpineSkinsController SkinsController;
+
+    private void Awake()
+    {
+        base.Awake();
+        lines = Language.Instance.language == Language.Instance.ukrainian ? ua : en;
+    }
     private void Start()
     {
         StartCoroutine(TalkRoutine());

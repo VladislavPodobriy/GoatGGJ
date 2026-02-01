@@ -773,6 +773,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Tip: "\u041E\u0433\u043B\u044F\u043D\u0443\u0442\u0438"
+  Tip_Ua: "\u041E\u0433\u043B\u044F\u043D\u0443\u0442\u0438"
+  Tip_En: Take a look
   Collider: {fileID: 64005691}
   IsInteractable: 1
   Star: {fileID: 472368009}
@@ -2690,6 +2692,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Tip: "\u0413\u043E\u0432\u043E\u0440\u0438\u0442\u0438"
+  Tip_Ua: "\u0413\u043E\u0432\u043E\u0440\u0438\u0442\u0438"
+  Tip_En: Talk
   Collider: {fileID: 186071077}
   IsInteractable: 0
   OnComplete:
@@ -2719,11 +2723,18 @@ MonoBehaviour:
   dialogue:
   - isNPC: 1
     text: "\u0410\u0430\u0430\u0430\u0430\u0430..."
+    text_ua: "\u0410\u0430\u0430\u0430\u0430\u0430..."
+    text_en: Aaaaaa...
   - isNPC: 1
     text: "\u0422\u0438 \u043D\u0435 \u043F\u0435\u0440\u0435\u043C\u043E\u0433\u043B\u0430,
       \u044F \u0449\u0435 \u043F\u043E\u0432\u0435\u0440\u043D\u0443\u0441\u044C!"
+    text_ua: "\u0422\u0438 \u043D\u0435 \u043F\u0435\u0440\u0435\u043C\u043E\u0433\u043B\u0430,
+      \u044F \u0449\u0435 \u043F\u043E\u0432\u0435\u0440\u043D\u0443\u0441\u044C!"
+    text_en: You haven't won, I will return!!!
   - isNPC: 0
     text: "\u041F\u0456\u0434\u0443 \u043D\u0430\u0431\u0435\u0440\u0443 \u0432\u043E\u0434\u0438"
+    text_ua: "\u041F\u0456\u0434\u0443 \u043D\u0430\u0431\u0435\u0440\u0443 \u0432\u043E\u0434\u0438"
+    text_en: I'll just get water
 --- !u!1 &189690939
 GameObject:
   m_ObjectHideFlags: 0
@@ -8694,6 +8705,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4385491531510630949, guid: f1986f29f9d1148469afa9bd086605d6, type: 3}
+      propertyPath: Tip_En
+      value: Pick Up
+      objectReference: {fileID: 0}
+    - target: {fileID: 4385491531510630949, guid: f1986f29f9d1148469afa9bd086605d6, type: 3}
+      propertyPath: Tip_Ua
+      value: "\u041F\u0456\u0434\u0456\u0431\u0440\u0430\u0442\u0438"
+      objectReference: {fileID: 0}
     - target: {fileID: 5050334212415971525, guid: f1986f29f9d1148469afa9bd086605d6, type: 3}
       propertyPath: m_Name
       value: Cage (2)
@@ -8996,6 +9015,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Tip: "\u0413\u043E\u0432\u043E\u0440\u0438\u0442\u0438"
+  Tip_Ua: "\u0413\u043E\u0432\u043E\u0440\u0438\u0442\u0438"
+  Tip_En: Talk
   Collider: {fileID: 310029329}
   IsInteractable: 0
   OnComplete:
@@ -9027,6 +9048,10 @@ MonoBehaviour:
     text: "*\u041C\u0430\u0431\u0443\u0442\u044C, \u0432\u0434\u0430\u043C\u0441\u044F
       \u0434\u043E \u0445\u0438\u0442\u0440\u043E\u0449\u0456\u0432... \u041F\u0440\u0438\u043A\u0438\u043D\u0443\u0441\u044C
       \u043C\u0435\u0440\u0442\u0432\u043E\u044E!*"
+    text_ua: "*\u041C\u0430\u0431\u0443\u0442\u044C, \u0432\u0434\u0430\u043C\u0441\u044F
+      \u0434\u043E \u0445\u0438\u0442\u0440\u043E\u0449\u0456\u0432... \u041F\u0440\u0438\u043A\u0438\u043D\u0443\u0441\u044C
+      \u043C\u0435\u0440\u0442\u0432\u043E\u044E!*"
+    text_en: "*Maybe I should use a trick\u2026 I\u2019ll pretend that I'm dead!*"
 --- !u!1 &310556581
 GameObject:
   m_ObjectHideFlags: 0
@@ -10503,6 +10528,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Tip: "\u0421\u043F\u0435\u043A\u0442\u0438 \u041A\u0430\u043B\u0430\u0447"
+  Tip_Ua: "\u0421\u043F\u0435\u043A\u0442\u0438 \u041A\u0430\u043B\u0430\u0447"
+  Tip_En: Bake Kalach Bread
   Collider: {fileID: 423030209}
   IsInteractable: 1
   Kalach: {fileID: 645618034}
@@ -13229,6 +13256,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Tip: "\u0417\u0430\u043B\u0456\u0437\u0442\u0438"
+  Tip_Ua: "\u0417\u0430\u043B\u0456\u0437\u0442\u0438"
+  Tip_En: Climb
   Collider: {fileID: 576672231}
   IsInteractable: 1
   Start: {fileID: 576672229}
@@ -14794,6 +14823,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Tip: "\u0413\u043E\u0432\u043E\u0440\u0438\u0442\u0438"
+  Tip_Ua: "\u0413\u043E\u0432\u043E\u0440\u0438\u0442\u0438"
+  Tip_En: Talk
   Collider: {fileID: 696283507}
   IsInteractable: 0
   OnComplete:
@@ -14824,19 +14855,36 @@ MonoBehaviour:
   - isNPC: 1
     text: "\u0417\u0434\u0430\u044E\u0441\u044C, \u0437\u0434\u0430\u044E\u0441\u044C...
       \u0414\u043E\u0441\u0438\u0442\u044C!"
+    text_ua: "\u0417\u0434\u0430\u044E\u0441\u044C, \u0437\u0434\u0430\u044E\u0441\u044C...
+      \u0414\u043E\u0441\u0438\u0442\u044C!"
+    text_en: I give up, I give up... Enough!
   - isNPC: 0
     text: "\u0422\u0438 \u043F\u0435\u0440\u0448\u0438\u0439 \u043F\u043E\u0447\u0430\u0432"
+    text_ua: "\u0422\u0438 \u043F\u0435\u0440\u0448\u0438\u0439 \u043F\u043E\u0447\u0430\u0432"
+    text_en: You started first
   - isNPC: 1
     text: "\u0426\u0435 \u0432\u0441\u0435 \u043B\u044E\u0434\u0438. \u0414\u043E\u0432\u0435\u043B\u0438
       \u043C\u0435\u043D\u0435 \u0441\u0432\u043E\u0457\u043C \u0448\u0443\u043C\u043E\u043C..
       \u0414\u043E\u0432\u0435\u043B\u043E\u0441\u044C \u043F\u0435\u0440\u0435\u0441\u0435\u043B\u0438\u0442\u0438\u0441\u044C
       \u0441\u044E\u0434\u0438"
+    text_ua: "\u0426\u0435 \u0432\u0441\u0435 \u043B\u044E\u0434\u0438. \u0414\u043E\u0432\u0435\u043B\u0438
+      \u043C\u0435\u043D\u0435 \u0441\u0432\u043E\u0457\u043C \u0448\u0443\u043C\u043E\u043C..
+      \u0414\u043E\u0432\u0435\u043B\u043E\u0441\u044C \u043F\u0435\u0440\u0435\u0441\u0435\u043B\u0438\u0442\u0438\u0441\u044C
+      \u0441\u044E\u0434\u0438"
+    text_en: "These people... Their noise was unbearable\u2026 I had to relocate
+      here.\u201D"
   - isNPC: 0
     text: "\u042F \u0442\u0456\u043B\u044C\u043A\u0438 \u0432\u0456\u0437\u044C\u043C\u0443
       \u0442\u0440\u043E\u0445\u0438 \u0431\u043E\u0440\u043E\u0448\u043D\u0430 \u0456
       \u043F\u0456\u0434\u0443 \u0441\u043E\u0431\u0456"
+    text_ua: "\u042F \u0442\u0456\u043B\u044C\u043A\u0438 \u0432\u0456\u0437\u044C\u043C\u0443
+      \u0442\u0440\u043E\u0445\u0438 \u0431\u043E\u0440\u043E\u0448\u043D\u0430 \u0456
+      \u043F\u0456\u0434\u0443 \u0441\u043E\u0431\u0456"
+    text_en: I'll just take some flour and leave you alone
   - isNPC: 1
     text: "\u0425\u0440\u0440\u0440..."
+    text_ua: "\u0425\u0440\u0440\u0440..."
+    text_en: Hrrr... Zzz... Hrrr...
 --- !u!1 &701784453
 GameObject:
   m_ObjectHideFlags: 0
@@ -15411,6 +15459,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6633439565821495529, guid: 942c9d0387a7a2640a159efa900f572f, type: 3}
       propertyPath: Tip
+      value: "\u0417\u043C\u043E\u043B\u043E\u0442\u0438 \u0437\u0435\u0440\u043D\u043E"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6633439565821495529, guid: 942c9d0387a7a2640a159efa900f572f, type: 3}
+      propertyPath: Tip_En
+      value: Grind Grain
+      objectReference: {fileID: 0}
+    - target: {fileID: 6633439565821495529, guid: 942c9d0387a7a2640a159efa900f572f, type: 3}
+      propertyPath: Tip_Ua
       value: "\u0417\u043C\u043E\u043B\u043E\u0442\u0438 \u0437\u0435\u0440\u043D\u043E"
       objectReference: {fileID: 0}
     - target: {fileID: 6633439565821495529, guid: 942c9d0387a7a2640a159efa900f572f, type: 3}
@@ -16018,6 +16074,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Tip: "\u0417\u043C\u043E\u043B\u043E\u0442\u0438 \u0437\u0435\u0440\u043D\u043E"
+  Tip_Ua: "\u0417\u043C\u043E\u043B\u043E\u0442\u0438 \u0437\u0435\u0440\u043D\u043E"
+  Tip_En: Grind Grain
   Collider: {fileID: 747499422}
   IsInteractable: 0
   Boroshno: {fileID: 719023950}
@@ -17111,6 +17169,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Tip: "\u0413\u043E\u0432\u043E\u0440\u0438\u0442\u0438"
+  Tip_Ua: "\u0413\u043E\u0432\u043E\u0440\u0438\u0442\u0438"
+  Tip_En: Talk
   Collider: {fileID: 795860684}
   IsInteractable: 0
   OnComplete:
@@ -17140,16 +17200,29 @@ MonoBehaviour:
   dialogue:
   - isNPC: 0
     text: "\u0412\u0456\u0442\u0430\u044E"
+    text_ua: "\u0412\u0456\u0442\u0430\u044E"
+    text_en: Hello
   - isNPC: 1
     text: "\u0417\u0434\u043E\u0440\u043E\u0432, \u0431\u0443\u043B\u0430! \u041A\u0445\u0435-\u041A\u0445\u0435"
+    text_ua: "\u0417\u0434\u043E\u0440\u043E\u0432, \u0431\u0443\u043B\u0430! \u041A\u0445\u0435-\u041A\u0445\u0435"
+    text_en: Hello there! *cough, cough*
   - isNPC: 1
     text: "\u041D\u0435 \u0431\u0430\u0447\u0438\u043B\u0430 \u043C\u043E\u044E \u0448\u0430\u043F\u043A\u0443?"
+    text_ua: "\u041D\u0435 \u0431\u0430\u0447\u0438\u043B\u0430 \u043C\u043E\u044E
+      \u0448\u0430\u043F\u043A\u0443?"
+    text_en: Have you seen my hat?
   - isNPC: 1
     text: "\u0412\u0441\u044E \u0433\u043E\u043B\u043E\u0432\u0443 \u0432\u0456\u0434\u043C\u043E\u0440\u043E\u0437\u0438\u0432..."
+    text_ua: "\u0412\u0441\u044E \u0433\u043E\u043B\u043E\u0432\u0443 \u0432\u0456\u0434\u043C\u043E\u0440\u043E\u0437\u0438\u0432..."
+    text_en: My whole head is frozen...
   - isNPC: 0
     text: "\u0422\u0430 \u043D\u0456, \u043D\u0435 \u0431\u0430\u0447\u0438\u043B\u0430..."
+    text_ua: "\u0422\u0430 \u043D\u0456, \u043D\u0435 \u0431\u0430\u0447\u0438\u043B\u0430..."
+    text_en: Um no, haven't seen it...
   - isNPC: 1
     text: ...
+    text_ua: 
+    text_en: 
 --- !u!1 &797433945
 GameObject:
   m_ObjectHideFlags: 0
@@ -18459,6 +18532,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Tip: "\u0413\u043E\u0432\u043E\u0440\u0438\u0442\u0438"
+  Tip_Ua: "\u0413\u043E\u0432\u043E\u0440\u0438\u0442\u0438"
+  Tip_En: Talk
   Collider: {fileID: 894048004}
   IsInteractable: 0
   OnComplete:
@@ -18489,9 +18564,15 @@ MonoBehaviour:
   - isNPC: 0
     text: "\u0406\u0434\u0438 \u0433\u0435\u0442\u044C, \u0414\u0456\u0434\u044C\u043A\u043E!
       \u0406 \u043D\u0435 \u0432\u0435\u0440\u0442\u0430\u0439\u0441\u044F!"
+    text_ua: "\u0406\u0434\u0438 \u0433\u0435\u0442\u044C, \u0414\u0456\u0434\u044C\u043A\u043E!
+      \u0406 \u043D\u0435 \u0432\u0435\u0440\u0442\u0430\u0439\u0441\u044F!"
+    text_en: Go away, Father of Evil! And Don't come back!
   - isNPC: 1
     text: "\u041D\u0456-\u0456-\u0456-\u0456-\u0456... \u041C\u0438 \u0449\u0435
       \u043F\u043E\u0431\u0430\u0447\u0438\u043C\u043E\u0441\u044C... "
+    text_ua: "\u041D\u0456-\u0456-\u0456-\u0456-\u0456... \u041C\u0438 \u0449\u0435
+      \u043F\u043E\u0431\u0430\u0447\u0438\u043C\u043E\u0441\u044C... "
+    text_en: No-o-o-o-o, We'll meet yet again...
 --- !u!1 &894976087
 GameObject:
   m_ObjectHideFlags: 0
@@ -19226,6 +19307,14 @@ PrefabInstance:
     - target: {fileID: 3717825282437489443, guid: f1986f29f9d1148469afa9bd086605d6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4385491531510630949, guid: f1986f29f9d1148469afa9bd086605d6, type: 3}
+      propertyPath: Tip_En
+      value: Pick up
+      objectReference: {fileID: 0}
+    - target: {fileID: 4385491531510630949, guid: f1986f29f9d1148469afa9bd086605d6, type: 3}
+      propertyPath: Tip_Ua
+      value: "\u041F\u0456\u0434\u0456\u0431\u0440\u0430\u0442\u0438"
       objectReference: {fileID: 0}
     - target: {fileID: 5050334212415971525, guid: f1986f29f9d1148469afa9bd086605d6, type: 3}
       propertyPath: m_Name
@@ -25237,11 +25326,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 595405537540171630, guid: aa133b0f61ff05049bc9af595744abab, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.7121322
+      value: 2.7120955
       objectReference: {fileID: 0}
     - target: {fileID: 595405537540171630, guid: aa133b0f61ff05049bc9af595744abab, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 30.857946
+      value: 30.859684
       objectReference: {fileID: 0}
     - target: {fileID: 595405537540171630, guid: aa133b0f61ff05049bc9af595744abab, type: 3}
       propertyPath: m_LocalPosition.z
@@ -25895,6 +25984,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Tip: "\u0413\u043E\u0432\u043E\u0440\u0438\u0442\u0438"
+  Tip_Ua: "\u0413\u043E\u0432\u043E\u0440\u0438\u0442\u0438"
+  Tip_En: Talk
   Collider: {fileID: 1060336969}
   IsInteractable: 0
   OnComplete:
@@ -25924,17 +26015,30 @@ MonoBehaviour:
   dialogue:
   - isNPC: 1
     text: "\u041C\u043E\u044F \u0448\u0430\u043F\u043A\u0430!"
+    text_ua: "\u041C\u043E\u044F \u0448\u0430\u043F\u043A\u0430!"
+    text_en: My Hat!
   - isNPC: 1
     text: "\u0414\u044F\u043A\u0443\u044E \u0442\u043E\u0431\u0456, \u0434\u0443\u043C\u0430\u0432
       \u0443\u0436\u0435 \u043D\u0435 \u0437\u043D\u0430\u0439\u0434\u0435\u0442\u044C\u0441\u044F..."
+    text_ua: "\u0414\u044F\u043A\u0443\u044E \u0442\u043E\u0431\u0456, \u0434\u0443\u043C\u0430\u0432
+      \u0443\u0436\u0435 \u043D\u0435 \u0437\u043D\u0430\u0439\u0434\u0435\u0442\u044C\u0441\u044F..."
+    text_en: Thank you, I thought it couldn't be found!
   - isNPC: 0
     text: "\u0420\u0430\u0434\u0430 \u0434\u043E\u043F\u043E\u043C\u043E\u0433\u0442\u0438.
       \u041C\u043E\u0436\u043D\u0430 \u0432\u0437\u044F\u0442\u0438 \u0432\u0430\u0448\u0435
       \u0432\u0456\u0434\u0440\u043E \u043D\u0435\u043D\u0430\u0434\u043E\u0432\u0433\u043E?"
+    text_ua: "\u0420\u0430\u0434\u0430 \u0434\u043E\u043F\u043E\u043C\u043E\u0433\u0442\u0438.
+      \u041C\u043E\u0436\u043D\u0430 \u0432\u0437\u044F\u0442\u0438 \u0432\u0430\u0448\u0435
+      \u0432\u0456\u0434\u0440\u043E \u043D\u0435\u043D\u0430\u0434\u043E\u0432\u0433\u043E?"
+    text_en: Happy to help! Can I borrow your bucket for a bit?
   - isNPC: 1
     text: "\u0410\u0432\u0436\u0435\u0436 \u0431\u0435\u0440\u0438!"
+    text_ua: "\u0410\u0432\u0436\u0435\u0436 \u0431\u0435\u0440\u0438!"
+    text_en: Of course! Take it!
   - isNPC: 0
     text: "\u0412\u0435\u043B\u044C\u043C\u0438 \u0434\u044F\u043A\u0443\u044E"
+    text_ua: "\u0412\u0435\u043B\u044C\u043C\u0438 \u0434\u044F\u043A\u0443\u044E"
+    text_en: Much Obliged!
 --- !u!1 &1061344166
 GameObject:
   m_ObjectHideFlags: 0
@@ -27590,6 +27694,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Tip: "\u0413\u043E\u0432\u043E\u0440\u0438\u0442\u0438"
+  Tip_Ua: "\u0413\u043E\u0432\u043E\u0440\u0438\u0442\u0438"
+  Tip_En: Talk
   Collider: {fileID: 1257829046}
   IsInteractable: 0
   OnComplete:
@@ -27622,9 +27728,17 @@ MonoBehaviour:
       \u0432\u0456\u0434\u043D\u043E\u0432\u0438\u0442\u0438 \u043F\u043E\u0441\u043E\u0445?
       \u042F \u0436 \u0439\u043E\u0433\u043E \u0442\u0430\u043A \u0440\u0435\u0442\u0435\u043B\u044C\u043D\u043E
       \u0437\u0430\u0445\u043E\u0432\u0430\u0432*"
+    text_ua: "*\u042F\u043A \u041A\u043E\u0437\u0430 \u043C\u043E\u0433\u043B\u0430
+      \u0432\u0456\u0434\u043D\u043E\u0432\u0438\u0442\u0438 \u043F\u043E\u0441\u043E\u0445?
+      \u042F \u0436 \u0439\u043E\u0433\u043E \u0442\u0430\u043A \u0440\u0435\u0442\u0435\u043B\u044C\u043D\u043E
+      \u0437\u0430\u0445\u043E\u0432\u0430\u0432*"
+    text_en: '*How could the Goat have restored the staff? I hid it so carefully!*'
   - isNPC: 1
     text: "\u0410\u0445-\u0442\u0438 \u0436, \u041A\u043E\u0437\u0430-\u0434\u0435\u0440\u0435\u0437\u0430!
       \u042F \u0442\u0435\u0431\u0435 \u0437'\u0457\u043C!"
+    text_ua: "\u0410\u0445-\u0442\u0438 \u0436, \u041A\u043E\u0437\u0430-\u0434\u0435\u0440\u0435\u0437\u0430!
+      \u042F \u0442\u0435\u0431\u0435 \u0437'\u0457\u043C!"
+    text_en: You wretched goat! I'll eat you!
 --- !u!1 &1262322254
 GameObject:
   m_ObjectHideFlags: 0
@@ -28125,6 +28239,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Tip: "\u041F\u043E\u0433\u043E\u0432\u043E\u0440\u0438\u0442\u0438"
+  Tip_Ua: "\u041F\u043E\u0433\u043E\u0432\u043E\u0440\u0438\u0442\u0438"
+  Tip_En: Talk
   Collider: {fileID: 1286944134}
   IsInteractable: 1
   _noHat: {fileID: 795860685}
@@ -28992,6 +29108,14 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: d6bd89a950b12694d8bf61fcfb17089c, type: 3}
+    - target: {fileID: 6633439565821495529, guid: 942c9d0387a7a2640a159efa900f572f, type: 3}
+      propertyPath: Tip_En
+      value: Pick up
+      objectReference: {fileID: 0}
+    - target: {fileID: 6633439565821495529, guid: 942c9d0387a7a2640a159efa900f572f, type: 3}
+      propertyPath: Tip_Ua
+      value: "\u0412\u0437\u044F\u0442\u0438"
+      objectReference: {fileID: 0}
     - target: {fileID: 6633439565821495529, guid: 942c9d0387a7a2640a159efa900f572f, type: 3}
       propertyPath: data.icon
       value: 
@@ -29915,6 +30039,14 @@ PrefabInstance:
       value: "\u0417\u0456\u0431\u0440\u0430\u0442\u0438 \u0443\u0440\u043E\u0436\u0430\u0439"
       objectReference: {fileID: 0}
     - target: {fileID: 6633439565821495529, guid: 942c9d0387a7a2640a159efa900f572f, type: 3}
+      propertyPath: Tip_En
+      value: Harvest
+      objectReference: {fileID: 0}
+    - target: {fileID: 6633439565821495529, guid: 942c9d0387a7a2640a159efa900f572f, type: 3}
+      propertyPath: Tip_Ua
+      value: "\u0417\u0456\u0431\u0440\u0430\u0442\u0438 \u0443\u0440\u043E\u0436\u0430\u0439"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6633439565821495529, guid: 942c9d0387a7a2640a159efa900f572f, type: 3}
       propertyPath: Collider
       value: 
       objectReference: {fileID: 1425261371}
@@ -30778,6 +30910,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Tip: "\u041F\u043E\u0433\u043E\u0432\u043E\u0440\u0438\u0442\u0438"
+  Tip_Ua: "\u041F\u043E\u0433\u043E\u0432\u043E\u0440\u0438\u0442\u0438"
+  Tip_En: Talk
   Collider: {fileID: 1458552488}
   IsInteractable: 1
   Dialog: {fileID: 1635485275}
@@ -30865,6 +30999,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Tip: "\u0413\u043E\u0432\u043E\u0440\u0438\u0442\u0438"
+  Tip_Ua: "\u0413\u043E\u0432\u043E\u0440\u0438\u0442\u0438"
+  Tip_En: Talk
   Collider: {fileID: 1459709603}
   IsInteractable: 0
   OnComplete:
@@ -30895,10 +31031,17 @@ MonoBehaviour:
   - isNPC: 1
     text: "\u042F \u0442\u043A\u0430\u043B\u0430 \u0446\u044E \u043D\u0438\u0442\u043A\u0443
       \u0434\u043B\u044F \u0442\u0435\u0431\u0435..."
+    text_ua: "\u042F \u0442\u043A\u0430\u043B\u0430 \u0446\u044E \u043D\u0438\u0442\u043A\u0443
+      \u0434\u043B\u044F \u0442\u0435\u0431\u0435..."
+    text_en: I've woven this thread for you...
   - isNPC: 1
     text: "\u0422\u0435\u043F\u0435\u0440 \u043D\u0435 \u0432\u0442\u0435\u0447\u0435\u0448!"
+    text_ua: "\u0422\u0435\u043F\u0435\u0440 \u043D\u0435 \u0432\u0442\u0435\u0447\u0435\u0448!"
+    text_en: Now you can't escape!
   - isNPC: 0
     text: ...
+    text_ua: ...
+    text_en: ...
 --- !u!1 &1463946741
 GameObject:
   m_ObjectHideFlags: 0
@@ -31664,6 +31807,14 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: be845882ffea00a459f4ee641748d6c0, type: 3}
+    - target: {fileID: 6633439565821495529, guid: 942c9d0387a7a2640a159efa900f572f, type: 3}
+      propertyPath: Tip_En
+      value: Pick Up
+      objectReference: {fileID: 0}
+    - target: {fileID: 6633439565821495529, guid: 942c9d0387a7a2640a159efa900f572f, type: 3}
+      propertyPath: Tip_Ua
+      value: "\u0412\u0437\u044F\u0442\u0438"
+      objectReference: {fileID: 0}
     - target: {fileID: 6633439565821495529, guid: 942c9d0387a7a2640a159efa900f572f, type: 3}
       propertyPath: data.icon
       value: 
@@ -38515,6 +38666,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Tip: "\u0413\u043E\u0432\u043E\u0440\u0438\u0442\u0438"
+  Tip_Ua: "\u0413\u043E\u0432\u043E\u0440\u0438\u0442\u0438"
+  Tip_En: Talk
   Collider: {fileID: 1556975216}
   IsInteractable: 0
   OnComplete:
@@ -38544,14 +38697,24 @@ MonoBehaviour:
   dialogue:
   - isNPC: 1
     text: "\u0425\u0440\u0440\u0440..."
+    text_ua: "\u0425\u0440\u0440\u0440..."
+    text_en: Hrrr...Zzz...Hrrr...
   - isNPC: 0
     text: "\u0429\u043E?"
+    text_ua: "\u0429\u043E?"
+    text_en: What?
   - isNPC: 1
     text: "\u0414\u041E\u0421\u0418\u0422\u042C \u0428\u0423\u041C\u0406\u0422\u0418!!!"
+    text_ua: "\u0414\u041E\u0421\u0418\u0422\u042C \u0428\u0423\u041C\u0406\u0422\u0418!!!"
+    text_en: THAT'S ENOUGH NOISE!!!
   - isNPC: 0
     text: "\u042F \u0442\u0456\u043B\u044C\u043A\u0438..."
+    text_ua: "\u042F \u0442\u0456\u043B\u044C\u043A\u0438..."
+    text_en: I was just...
   - isNPC: 1
     text: "\u0422\u0418 \u041C\u0415\u041D\u0415 \u0414\u0420\u0410\u0422\u0423\u0404\u0428!!!"
+    text_ua: "\u0422\u0418 \u041C\u0415\u041D\u0415 \u0414\u0420\u0410\u0422\u0423\u0404\u0428!!!"
+    text_en: YOU ARE ANNOYING ME!
 --- !u!1 &1559046655
 GameObject:
   m_ObjectHideFlags: 0
@@ -38914,7 +39077,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e5665755d50aa74d9d908cdad77734c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Tip: Move
+  Tip: "\u041F\u043E\u0440\u0443\u0445\u0430\u0442\u0438"
+  Tip_Ua: "\u041F\u043E\u0440\u0443\u0445\u0430\u0442\u0438"
+  Tip_En: Move
   Collider: {fileID: 1565133413}
   IsInteractable: 1
   _lines:
@@ -39401,6 +39566,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Tip: "\u041D\u0430\u0431\u0440\u0430\u0442\u0438 \u0432\u043E\u0434\u0438"
+  Tip_Ua: "\u041D\u0430\u0431\u0440\u0430\u0442\u0438 \u0432\u043E\u0434\u0438"
+  Tip_En: Get Water
   Collider: {fileID: 1588202673}
   IsInteractable: 0
   FullBucket: {fileID: 750994613}
@@ -40021,6 +40188,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Tip: "\u0413\u043E\u0432\u043E\u0440\u0438\u0442\u0438"
+  Tip_Ua: Talk
+  Tip_En: Talk
   Collider: {fileID: 1635485274}
   IsInteractable: 0
   OnComplete:
@@ -40051,16 +40220,29 @@ MonoBehaviour:
   - isNPC: 1
     text: "\u0422\u0438 \u043F\u043E\u0434\u043E\u043B\u0430\u043B\u0430 \u043C\u043E\u044E
       \u0437\u043B\u0443 \u0441\u0435\u0441\u0442\u0440\u0443 - \u041D\u0435\u0434\u043E\u043B\u044E"
+    text_ua: "\u0422\u0438 \u043F\u043E\u0434\u043E\u043B\u0430\u043B\u0430 \u043C\u043E\u044E
+      \u0437\u043B\u0443 \u0441\u0435\u0441\u0442\u0440\u0443 - \u041D\u0435\u0434\u043E\u043B\u044E"
+    text_en: You have defeated my evil sister, Unfate.
   - isNPC: 1
     text: "\u0422\u0435\u043F\u0435\u0440 \u0431\u0443\u0434\u0435 \u043B\u0430\u0433\u043E\u0434\u0430
       \u0442\u0430 \u0434\u043E\u0431\u0440\u043E\u0431\u0443\u0442"
+    text_ua: "\u0422\u0435\u043F\u0435\u0440 \u0431\u0443\u0434\u0435 \u043B\u0430\u0433\u043E\u0434\u0430
+      \u0442\u0430 \u0434\u043E\u0431\u0440\u043E\u0431\u0443\u0442"
+    text_en: Now there will be peace and prosperity
   - isNPC: 1
     text: "\u0414\u043E\u0440\u0435\u0447\u0456, \u044F \u0437\u043D\u0430\u0439\u0448\u043B\u0430
       \u0442\u0432\u0456\u0439 \u0434\u0437\u0432\u0456\u043D\u043E\u0447\u043E\u043A
       \u0456 \u0437\u0456\u0442\u043A\u0430\u043B\u0430 \u0434\u043B\u044F \u043D\u044C\u043E\u0433\u043E
       \u0433\u0430\u0440\u043D\u0443 \u0441\u0442\u0440\u0456\u0447\u043A\u0443"
+    text_ua: "\u0414\u043E\u0440\u0435\u0447\u0456, \u044F \u0437\u043D\u0430\u0439\u0448\u043B\u0430
+      \u0442\u0432\u0456\u0439 \u0434\u0437\u0432\u0456\u043D\u043E\u0447\u043E\u043A
+      \u0456 \u0437\u0456\u0442\u043A\u0430\u043B\u0430 \u0434\u043B\u044F \u043D\u044C\u043E\u0433\u043E
+      \u0433\u0430\u0440\u043D\u0443 \u0441\u0442\u0440\u0456\u0447\u043A\u0443"
+    text_en: By the way, I've found your little bell and wove a nice ribbon for it
   - isNPC: 0
     text: "\u0414\u044F\u043A\u0443\u044E"
+    text_ua: "\u0414\u044F\u043A\u0443\u044E"
+    text_en: Thank you
 --- !u!1 &1635807924
 GameObject:
   m_ObjectHideFlags: 0
@@ -41144,6 +41326,14 @@ PrefabInstance:
     - target: {fileID: 6196244540906339739, guid: 942c9d0387a7a2640a159efa900f572f, type: 3}
       propertyPath: m_SortingLayerID
       value: 2062911529
+      objectReference: {fileID: 0}
+    - target: {fileID: 6633439565821495529, guid: 942c9d0387a7a2640a159efa900f572f, type: 3}
+      propertyPath: Tip_En
+      value: Pick up
+      objectReference: {fileID: 0}
+    - target: {fileID: 6633439565821495529, guid: 942c9d0387a7a2640a159efa900f572f, type: 3}
+      propertyPath: Tip_Ua
+      value: "\u0412\u0437\u044F\u0442\u0438"
       objectReference: {fileID: 0}
     - target: {fileID: 6633439565821495529, guid: 942c9d0387a7a2640a159efa900f572f, type: 3}
       propertyPath: data.icon
@@ -43730,6 +43920,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Tip: "\u0421\u043F\u0443\u0441\u0442\u0438\u0442\u0438\u0441\u044C"
+  Tip_Ua: "\u0421\u043F\u0443\u0441\u0442\u0438\u0442\u0438\u0441\u044C"
+  Tip_En: Descend
   Collider: {fileID: 1837453199}
   IsInteractable: 1
   Start: {fileID: 1837453197}
@@ -44780,6 +44972,14 @@ PrefabInstance:
       value: "\u041A\u0430\u043B\u0430\u0447"
       objectReference: {fileID: 0}
     - target: {fileID: 6633439565821495529, guid: 942c9d0387a7a2640a159efa900f572f, type: 3}
+      propertyPath: Tip_En
+      value: Pick up
+      objectReference: {fileID: 0}
+    - target: {fileID: 6633439565821495529, guid: 942c9d0387a7a2640a159efa900f572f, type: 3}
+      propertyPath: Tip_Ua
+      value: "\u0412\u0437\u044F\u0442\u0438"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6633439565821495529, guid: 942c9d0387a7a2640a159efa900f572f, type: 3}
       propertyPath: data.icon
       value: 
       objectReference: {fileID: 21300000, guid: a623f618dd3ed6c41b3f160db91387da, type: 3}
@@ -45162,6 +45362,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Tip: "\u0413\u043E\u0432\u043E\u0440\u0438\u0442\u0438"
+  Tip_Ua: "\u0413\u043E\u0432\u043E\u0440\u0438\u0442\u0438"
+  Tip_En: Talk
   Collider: {fileID: 1879515046}
   IsInteractable: 0
   OnComplete:
@@ -45193,6 +45395,10 @@ MonoBehaviour:
     text: "*\u041C\u0435\u043D\u0456 \u0437\u0430\u0431\u0440\u0430\u043A\u043B\u043E
       \u0441\u0438\u043B. \u0417\u0434\u0430\u0454\u0442\u044C\u0441\u044F, \u044F
       \u043F\u043E\u043C\u0438\u0440\u0430\u044E...*"
+    text_ua: "*\u041C\u0435\u043D\u0456 \u0437\u0430\u0431\u0440\u0430\u043A\u043B\u043E
+      \u0441\u0438\u043B. \u0417\u0434\u0430\u0454\u0442\u044C\u0441\u044F, \u044F
+      \u043F\u043E\u043C\u0438\u0440\u0430\u044E...*"
+    text_en: '*I''m powerless... Think, I''m dying...*'
 --- !u!1 &1892766475
 GameObject:
   m_ObjectHideFlags: 0
@@ -51011,6 +51217,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Tip: "\u0413\u043E\u0432\u043E\u0440\u0438\u0442\u0438"
+  Tip_Ua: "\u0413\u043E\u0432\u043E\u0440\u0438\u0442\u0438"
+  Tip_En: Talk
   Collider: {fileID: 1916011952}
   IsInteractable: 0
   OnComplete:
@@ -51041,17 +51249,31 @@ MonoBehaviour:
   - isNPC: 0
     text: "\u0412\u0456\u0442\u0430\u044E, \u0447\u0438 \u043C\u043E\u0436\u043D\u0430
       \u043D\u0430\u0431\u0440\u0430\u0442\u0438 \u0432\u043E\u0434\u0438?"
+    text_ua: "\u0412\u0456\u0442\u0430\u044E, \u0447\u0438 \u043C\u043E\u0436\u043D\u0430
+      \u043D\u0430\u0431\u0440\u0430\u0442\u0438 \u0432\u043E\u0434\u0438?"
+    text_en: Hello, Can I gather some water?
   - isNPC: 1
     text: "\u041E\u0434\u043D\u0430 \u0432 \u0442\u0435\u043C\u0440\u044F\u0432\u0456"
+    text_ua: "\u041E\u0434\u043D\u0430 \u0432 \u0442\u0435\u043C\u0440\u044F\u0432\u0456"
+    text_en: All alone in the dark
   - isNPC: 0
     text: "\u041F\u0440\u043E \u0449\u043E \u0432\u0438?"
+    text_ua: "\u041F\u0440\u043E \u0449\u043E \u0432\u0438?"
+    text_en: What are you talking about?
   - isNPC: 1
     text: "\u0429\u043E\u0431 \u043D\u0435 \u0441\u0442\u0430\u043B\u043E\u0441\u044F
       \u041B\u0438\u0445\u043E..."
+    text_ua: "\u0429\u043E\u0431 \u043D\u0435 \u0441\u0442\u0430\u043B\u043E\u0441\u044F
+      \u041B\u0438\u0445\u043E..."
+    text_en: So that Misfortune won't happen...
   - isNPC: 0
     text: ...
+    text_ua: ...
+    text_en: ...
   - isNPC: 1
     text: ...
+    text_ua: 
+    text_en: 
 --- !u!114 &1916011954
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51065,6 +51287,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Tip: "\u0413\u043E\u0432\u043E\u0440\u0438\u0442\u0438"
+  Tip_Ua: "\u0413\u043E\u0432\u043E\u0440\u0438\u0442\u0438"
+  Tip_En: Talk
   Collider: {fileID: 1916011952}
   IsInteractable: 0
   OnComplete:
@@ -51094,8 +51318,12 @@ MonoBehaviour:
   dialogue:
   - isNPC: 1
     text: "\u0412\u043E\u0434\u0438 \u043D\u0435\u043C\u0430\u0454"
+    text_ua: 
+    text_en: 
   - isNPC: 0
     text: ...
+    text_ua: 
+    text_en: 
 --- !u!1 &1917211395
 GameObject:
   m_ObjectHideFlags: 0
@@ -51621,6 +51849,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Tip: "\u0423\u0432\u0456\u0439\u0442\u0438"
+  Tip_Ua: "\u0423\u0432\u0456\u0439\u0442\u0438"
+  Tip_En: Enter
   Collider: {fileID: 1947837738}
   IsInteractable: 1
   MillScene: {fileID: 1872662838}
@@ -52890,6 +53120,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Tip: "\u0417\u0430\u0439\u0442\u0438"
+  Tip_Ua: "\u0417\u0430\u0439\u0442\u0438"
+  Tip_En: Enter
   Collider: {fileID: 1996798105}
   IsInteractable: 1
   HouseScene: {fileID: 717368233}
@@ -58941,6 +59173,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4385491531510630949, guid: f1986f29f9d1148469afa9bd086605d6, type: 3}
+      propertyPath: Tip_En
+      value: Pick up
+      objectReference: {fileID: 0}
+    - target: {fileID: 4385491531510630949, guid: f1986f29f9d1148469afa9bd086605d6, type: 3}
+      propertyPath: Tip_Ua
+      value: "\u041F\u0456\u0434\u0456\u0431\u0440\u0430\u0442\u0438"
+      objectReference: {fileID: 0}
     - target: {fileID: 5050334212415971525, guid: f1986f29f9d1148469afa9bd086605d6, type: 3}
       propertyPath: m_Name
       value: Cage
@@ -59181,6 +59421,14 @@ PrefabInstance:
     - target: {fileID: 5553437679626156698, guid: 942c9d0387a7a2640a159efa900f572f, type: 3}
       propertyPath: m_Name
       value: "\u0448\u0430\u043F\u043A\u0430"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6633439565821495529, guid: 942c9d0387a7a2640a159efa900f572f, type: 3}
+      propertyPath: Tip_En
+      value: Pick up
+      objectReference: {fileID: 0}
+    - target: {fileID: 6633439565821495529, guid: 942c9d0387a7a2640a159efa900f572f, type: 3}
+      propertyPath: Tip_Ua
+      value: "\u0412\u0437\u044F\u0442\u0438"
       objectReference: {fileID: 0}
     - target: {fileID: 8485751383849346956, guid: 942c9d0387a7a2640a159efa900f572f, type: 3}
       propertyPath: m_LocalPosition.x
