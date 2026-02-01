@@ -6,7 +6,7 @@ filter: Linear,Linear
 repeat: none
 Goat/Flute
   rotate: false
-  xy: 1507, 215
+  xy: 1507, 132
   size: 78, 83
   orig: 78, 83
   offset: 0, 0
@@ -23,6 +23,13 @@ Goat/віз з сіном
   xy: 2, 2
   size: 1128, 798
   orig: 1128, 798
+  offset: 0, 0
+  index: -1
+Goat/дзвіночок
+  rotate: false
+  xy: 1507, 217
+  size: 85, 81
+  orig: 85, 81
   offset: 0, 0
   index: -1
 Goat/сходи

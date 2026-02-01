@@ -9,6 +9,17 @@ public class Domovoy : MonoBehaviour
     
     [SerializeField]
     private float _jumpSpeed;
+
+    public DialogSystem Dialog;
+    public DialogSystem FinalDialog;
+    public InteractiveObject Ladder;
+    public BoxCollider2D Exit;
+    public Trigger InitialTrigger;
+
+    public DamageArea RollDamageArea;
+    public DamageArea JumpDamageArea;
+    public DamageArea KickDamageArea;
+    public Transform SpawnPoint;
     
     private SpineAnimationController _anim;
     private SpineSkinsController _skins;
@@ -25,6 +36,9 @@ public class Domovoy : MonoBehaviour
     
     [SerializeField] 
     private int _hp = 10;
+    
+    [SerializeField] 
+    private int _standHp = 5;
     
     void Start()
     {
@@ -57,7 +71,14 @@ public class Domovoy : MonoBehaviour
             else if (x.EventData.Data.Name == "jumpstart")
                 _rb.velocity = new Vector2(-_faceDirection * _jumpSpeed, 0);
             else if (x.EventData.Data.Name == "jumpend")
+            {
+                JumpDamageArea.gameObject.SetActive(true);
                 _rb.velocity = Vector2.zero;
+            }
+            else if (x.EventData.Data.Name == "kick")
+            {
+                KickDamageArea.gameObject.SetActive(true);
+            }
         });
         
         _anim.OnAnimationComplete.AddListener(x =>
@@ -65,31 +86,107 @@ public class Domovoy : MonoBehaviour
             if (x.StateName == "Roll")
                 _isRolling = false;
             else if (x.StateName == "Jump" || x.StateName == "Kick")
+            {
                 _isJumping = false;
+                KickDamageArea.gameObject.SetActive(false);
+                JumpDamageArea.gameObject.SetActive(false);
+            }
         });
         
         _standHitBox.OnHit.AddListener((x) =>
         {
-            _anim.PlayAnimation("Damage", 1);
-            _hp -= 1;
-            if (_hp == 7)
+            if (x == HitType.Fear)
+                return;
+            if (_hp > 0)
             {
-                StopCoroutine(_stateRoutine);
-                _skins.TryAddSkin("Legs");
-                _isRolling = false;
+                _anim.PlayAnimation("Damage", 1);
+                _hp -= 1;
+                if (_hp == _standHp)
+                {
+                    StopCoroutine(_stateRoutine);
+                    _skins.TryAddSkin("Legs");
+                    _isRolling = false;
+                    _rb.velocity = Vector2.zero;
+                    _stateRoutine = StartCoroutine(StandStateRoutine());
+                }
+            }
+            else
+            {
+                StopAllCoroutines();
                 _rb.velocity = Vector2.zero;
-                _stateRoutine = StartCoroutine(StandStateRoutine());
+                _anim.PlayAnimation("RollIdle");
+                FinalDialog.Activate();
             }
         });
         
         _startScale = _anim.transform.localScale.x;
         SetFaceDirection(1);
         
-        _stateRoutine = StartCoroutine(RollStateRoutine());
+        InitialTrigger.OnTriggerEnter.AddListener(() =>
+        {
+            InitialTrigger.gameObject.SetActive(false);
+            Exit.gameObject.SetActive(false);
+            Ladder.ToggleInteractable(false);
+            Dialog.Activate();
+        });
+        
+        Dialog.OnComplete.AddListener(() =>
+        {
+            _stateRoutine = StartCoroutine(RollStateRoutine());
+        });
+        
+        FinalDialog.OnComplete.AddListener(() =>
+        {
+            Exit.gameObject.SetActive(true);
+            Ladder.ToggleInteractable(true);
+            transform.position = SpawnPoint.position;
+            _rb.simulated = false;
+            JumpDamageArea.gameObject.SetActive(false);
+            RollDamageArea.gameObject.SetActive(false);
+            KickDamageArea.gameObject.SetActive(false);
+            StartCoroutine(Talk());
+        });
+        
+        _anim.PlayAnimation("RollIdle");
     }
 
+    private IEnumerator Talk()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(Random.Range(6, 10f));
+            var chance = Random.Range(0, 100);
+            if (chance < 15)
+            {
+                TalkTextController.SpawnTalkText(transform.position + new Vector3(0, 3, 0), 
+                    "Хррр...");
+            }
+            else if (chance < 40)
+            {
+                TalkTextController.SpawnTalkText(transform.position + new Vector3(0, 3, 0), 
+                    "Не набридай...");
+            }
+            else if (chance < 65)
+            {
+                TalkTextController.SpawnTalkText(transform.position + new Vector3(0, 3, 0), 
+                    "Коли вже підеш?");
+            }
+            else if (chance < 85)
+            {
+                TalkTextController.SpawnTalkText(transform.position + new Vector3(0, 3, 0), 
+                    "Не шуми...");
+            }
+            else
+            {
+                TalkTextController.SpawnTalkText(transform.position + new Vector3(0, 3, 0), 
+                    "Залиш мене в спокої");
+            }
+        }
+    }
+    
     private IEnumerator StandStateRoutine()
     {
+        RollDamageArea.gameObject.SetActive(false);
         while (true)
         {
             _isJumping = true;
@@ -99,6 +196,18 @@ public class Domovoy : MonoBehaviour
                 _anim.PlayAnimation("Jump");
             
             yield return new WaitUntil(() => !_isJumping);
+            
+            var chance = Random.Range(0, 100);
+            if (chance < 15)
+            {
+                TalkTextController.SpawnTalkText(transform.position + new Vector3(0, 3, 0), 
+                    "ДОСИТЬ ШУМІТИ!!!");
+            }
+            else if (chance < 30)
+            {
+                TalkTextController.SpawnTalkText(transform.position + new Vector3(0, 3, 0), 
+                    "Начувайся!");
+            }
             
             var timer = 0f;
             var timeout = Random.Range(0f, 1f);
@@ -117,7 +226,7 @@ public class Domovoy : MonoBehaviour
         {
             _isRolling = true;
             _anim.PlayAnimation("Roll");
-            
+            RollDamageArea.gameObject.SetActive(true);
             while (_isRolling)
             {
                 var hit = Physics2D.Raycast(transform.position, new Vector2(-_faceDirection, 0), 1, LayerMask.GetMask("Wall"));
@@ -133,7 +242,20 @@ public class Domovoy : MonoBehaviour
                 }
                 yield return null;
             }
+            RollDamageArea.gameObject.SetActive(false);
 
+            var chance = Random.Range(0, 100);
+            if (chance < 15)
+            {
+                TalkTextController.SpawnTalkText(transform.position + new Vector3(0, 3, 0), 
+                    "Як же ти мене дратуєш!");
+            }
+            else if (chance < 30)
+            {
+                TalkTextController.SpawnTalkText(transform.position + new Vector3(0, 3, 0), 
+                    "Хррр...");
+            }
+            
             var timer = 0f;
             var timeout = Random.Range(1f, 3f);
             while (timer < timeout)

@@ -15,6 +15,7 @@ public class Witch : MonoBehaviour
     [SerializeField] private DialogSystem _finalDialog;
     [SerializeField] private DialogSystem _startDialog;
     [SerializeField] private GameObject _roots;
+    [SerializeField] private Trigger _initialTrigger;
     
     [SerializeField] private Spline _spline;
     [SerializeField] private Transform _particleSystem;
@@ -62,6 +63,8 @@ public class Witch : MonoBehaviour
         
         _hitBox.OnHit.AddListener((x) =>
         {
+            if (x == HitType.Fear)
+                return;
             _health -= 1;
             if (_health == 0)
             {
@@ -79,6 +82,12 @@ public class Witch : MonoBehaviour
             }
             else
                 _anim.PlayAnimation("Damage", 1);
+        });
+        
+        _initialTrigger.OnTriggerEnter.AddListener(() =>
+        {
+            _initialTrigger.gameObject.SetActive(false);
+            _startDialog.Activate();
         });
         
         _startScale = _anim.transform.localScale.x;

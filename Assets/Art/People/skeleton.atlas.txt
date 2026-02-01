@@ -1,0 +1,90 @@
+
+skeleton.png
+size: 2010,1185
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+голова чоловік 1
+  rotate: false
+  xy: 2, 683
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+дівчина
+  rotate: false
+  xy: 1508, 251
+  size: 247, 430
+  orig: 247, 430
+  offset: 0, 0
+  index: -1
+дівчина рука
+  rotate: true
+  xy: 1508, 2
+  size: 247, 430
+  orig: 247, 430
+  offset: 0, 0
+  index: -1
+дівчина тіло
+  rotate: false
+  xy: 1757, 251
+  size: 247, 430
+  orig: 247, 430
+  offset: 0, 0
+  index: -1
+жінка
+  rotate: true
+  xy: 2, 2
+  size: 177, 365
+  orig: 177, 365
+  offset: 0, 0
+  index: -1
+ноги чоловік 1
+  rotate: false
+  xy: 504, 683
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+передпліччя чоловік 1
+  rotate: false
+  xy: 1006, 683
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+плече Л чоловік 1
+  rotate: false
+  xy: 1508, 683
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+тулуб чоловік 1
+  rotate: false
+  xy: 2, 181
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+хлопець
+  rotate: true
+  xy: 369, 8
+  size: 171, 371
+  orig: 171, 371
+  offset: 0, 0
+  index: -1
+чоловік 1
+  rotate: false
+  xy: 504, 181
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+шапка чоловік 1
+  rotate: false
+  xy: 1006, 181
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1

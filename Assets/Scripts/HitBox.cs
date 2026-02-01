@@ -4,7 +4,8 @@ using UnityEngine.Events;
 public enum HitType
 {
     Horn = 1,
-    Staff = 2
+    Staff = 2,
+    Fear = 3 
 }
 
 public class HitBox : MonoBehaviour

@@ -12,6 +12,8 @@ public class Unfate : MonoBehaviour
     private float _startScale;
     private PlayerController _player;
     private HitBox _hitBox;
+    private DamageArea _damageArea;
+    [SerializeField] private DialogSystem _dialog;
     [SerializeField] private int _health;
     
     [SerializeField] private Rigidbody2D FateBullet;
@@ -41,6 +43,7 @@ public class Unfate : MonoBehaviour
         _player = FindObjectOfType<PlayerController>();
         _anim = GetComponentInChildren<SpineAnimationController>();
         _hitBox = GetComponentInChildren<HitBox>();
+        _damageArea = GetComponentInChildren<DamageArea>(true);
         
         _anim.CreateAnimationState("Float", true);
 
@@ -75,6 +78,8 @@ public class Unfate : MonoBehaviour
         
         _hitBox.OnHit.AddListener((x) =>
         {
+            if (x == HitType.Fear)
+                return;
             _anim.PlayAnimation("Damage", 1);
             _health--;
             if (_health == 0)
@@ -93,7 +98,11 @@ public class Unfate : MonoBehaviour
 
         _anim.PlayAnimation("Float");
         
-        StartCoroutine(MainStateRoutine());
+        _dialog.Activate();
+        _dialog.OnComplete.AddListener(() =>
+        {
+            StartCoroutine(MainStateRoutine());
+        });
     }
 
     private void Update()
@@ -103,7 +112,7 @@ public class Unfate : MonoBehaviour
     
     private IEnumerator MainStateRoutine()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
         while (true)
         {
             var timer = 0f;
@@ -116,9 +125,12 @@ public class Unfate : MonoBehaviour
                 if (distance > 2 && distance < 4 && !attacked)
                 {
                     _anim.PlayAnimation("MeleeAttack");
+                    
                     attacked = true;
                     _isBusy = true;
+                    _damageArea.gameObject.SetActive(true);
                     yield return new WaitUntil(() => !_isBusy);
+                    _damageArea.gameObject.SetActive(false);
                 }
                 transform.position += new Vector3(2 * Time.deltaTime * _moveDirection, 0, 0);
                 if (transform.position.x < minX && _moveDirection == -1)

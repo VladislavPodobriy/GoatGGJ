@@ -10,6 +10,9 @@ public class HealthBar : MonoBehaviour
     [SerializeField]
     private List<Image> _heal;
     
+    [SerializeField]
+    private List<Image> _birds;
+    
     public void UpdateHealth(int count)
     {
         for (int i = 0; i < _images.Count; i++)
@@ -23,6 +26,14 @@ public class HealthBar : MonoBehaviour
         for (int i = 0; i < _heal.Count; i++)
         {
             _heal[i].gameObject.SetActive(i < count);
+        }
+    }
+    
+    public void UpdateBirds(int count)
+    {
+        for (int i = 0; i < _birds.Count; i++)
+        {
+            _birds[i].gameObject.SetActive(i < count);
         }
     }
 }

@@ -19,14 +19,14 @@ public class Scene_Controller : MonoBehaviour
     public int OrthoSize = 8;
     
     [HideInInspector]
-    public CinemachineConfiner2D cameraConfiner; 
+    public CinemachineConfiner cameraConfiner; 
 
     [Header("Overlay")]
     [SerializeField] GameObject overlay;
 
     private void Start()
     {
-        cameraConfiner = FindObjectOfType<CinemachineConfiner2D>();
+        cameraConfiner = FindObjectOfType<CinemachineConfiner>();
 
         if (IsInitial)
         {
@@ -72,7 +72,7 @@ public class Scene_Controller : MonoBehaviour
 
     #region SCENE_CAMERA_CONTROLS
 
-    private void SetCameraBounds(GameObject boundsObj, CinemachineConfiner2D confiner)
+    private void SetCameraBounds(GameObject boundsObj, CinemachineConfiner confiner)
     {
         confiner.m_BoundingShape2D = boundsObj.GetComponent<PolygonCollider2D>();
     }

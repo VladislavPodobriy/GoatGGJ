@@ -29,6 +29,7 @@ public class FateBullet : MonoBehaviour
     private IEnumerator DestroyAfterTime(float time)
     {
         yield return new WaitForSeconds(time);
+        GetComponentInChildren<DamageArea>().gameObject.SetActive(false);
         Destroy(gameObject);
     }
 }

@@ -1,0 +1,139 @@
+
+skeleton.png
+size: 3798,1610
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+бомбочка
+  rotate: false
+  xy: 2, 1498
+  size: 110, 110
+  orig: 110, 110
+  offset: 0, 0
+  index: -1
+голова дідько
+  rotate: true
+  xy: 114, 1074
+  size: 534, 612
+  orig: 534, 612
+  offset: 0, 0
+  index: -1
+дідько
+  rotate: true
+  xy: 728, 1074
+  size: 534, 612
+  orig: 534, 612
+  offset: 0, 0
+  index: -1
+кисть Л дідько
+  rotate: true
+  xy: 1342, 1074
+  size: 534, 612
+  orig: 534, 612
+  offset: 0, 0
+  index: -1
+кисть П дідько
+  rotate: true
+  xy: 1956, 1074
+  size: 534, 612
+  orig: 534, 612
+  offset: 0, 0
+  index: -1
+нога верх Л дідько
+  rotate: true
+  xy: 2570, 1074
+  size: 534, 612
+  orig: 534, 612
+  offset: 0, 0
+  index: -1
+нога верх П дідько
+  rotate: true
+  xy: 3184, 1074
+  size: 534, 612
+  orig: 534, 612
+  offset: 0, 0
+  index: -1
+нога низ Л дідько
+  rotate: true
+  xy: 2, 538
+  size: 534, 612
+  orig: 534, 612
+  offset: 0, 0
+  index: -1
+нога низ П дідько
+  rotate: true
+  xy: 616, 538
+  size: 534, 612
+  orig: 534, 612
+  offset: 0, 0
+  index: -1
+рука Л верх дідько
+  rotate: true
+  xy: 1230, 538
+  size: 534, 612
+  orig: 534, 612
+  offset: 0, 0
+  index: -1
+рука Л низ дідько
+  rotate: true
+  xy: 1844, 538
+  size: 534, 612
+  orig: 534, 612
+  offset: 0, 0
+  index: -1
+рука П верх дідько
+  rotate: true
+  xy: 2458, 538
+  size: 534, 612
+  orig: 534, 612
+  offset: 0, 0
+  index: -1
+рука П низ дідько
+  rotate: true
+  xy: 3072, 538
+  size: 534, 612
+  orig: 534, 612
+  offset: 0, 0
+  index: -1
+ступня Л дідько
+  rotate: true
+  xy: 2, 2
+  size: 534, 612
+  orig: 534, 612
+  offset: 0, 0
+  index: -1
+ступня П дідько
+  rotate: true
+  xy: 616, 2
+  size: 534, 612
+  orig: 534, 612
+  offset: 0, 0
+  index: -1
+тулуб верх дідько
+  rotate: true
+  xy: 1230, 2
+  size: 534, 612
+  orig: 534, 612
+  offset: 0, 0
+  index: -1
+тулуб низ дідько
+  rotate: true
+  xy: 1844, 2
+  size: 534, 612
+  orig: 534, 612
+  offset: 0, 0
+  index: -1
+хутро верх дідько
+  rotate: true
+  xy: 2458, 2
+  size: 534, 612
+  orig: 534, 612
+  offset: 0, 0
+  index: -1
+щелепа дідько
+  rotate: true
+  xy: 3072, 2
+  size: 534, 612
+  orig: 534, 612
+  offset: 0, 0
+  index: -1

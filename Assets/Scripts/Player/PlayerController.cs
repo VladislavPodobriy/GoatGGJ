@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     [Header("Player Settings")]
     [SerializeField] private int _health;
     [SerializeField] private int _heal;
+    [SerializeField] private int _birds;
     [SerializeField] float speed;
     [SerializeField] float jumpingPower;
     [SerializeField] float dashPower;
@@ -22,6 +23,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool _skipSpawn;
 
     [SerializeField] private Collider2D _hornAttackArea;
+    [SerializeField] private Collider2D _fearArea;
     [SerializeField] private Transform _staffParticlesOrigin;
     [SerializeField] private ParticleSystem _staffParticlesPrefab;
     
@@ -31,6 +33,10 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D _rb;
     private BoxCollider2D _collider;
     private HealthBar _healthBar;
+    
+    public bool HasStaff;
+    public bool HasBell;
+    public bool HomeOpened;
     
     private bool _isJump;
     private bool _isGrounded;
@@ -54,10 +60,14 @@ public class PlayerController : MonoBehaviour
 	
     public bool LongAttackAllowed = true;
     private bool _inv = false;
+
+    private void Awake()
+    {
+        ComponentSetup();
+    }
     
     private void Start()
     {
-        ComponentSetup();
         AnimationSetup();
     }
 
@@ -120,8 +130,12 @@ public class PlayerController : MonoBehaviour
             .AddTransition("Run", false, () => _moveSpeed != 0);
 
         _anim.CreateAnimationState("Run", true)
-            .AddTransition("Idle", false, () => _moveSpeed == 0);
+            .AddTransition("Idle", false, () => _moveSpeed == 0)
+            .AddTransition("RunWithStaff", false, () => HasStaff);
 
+        _anim.CreateAnimationState("RunWithStaff", true)
+            .AddTransition("Idle", false, () => _moveSpeed == 0);
+        
         _anim.CreateAnimationState("Jump_start", false);
 
         _anim.CreateAnimationState("Jump_end", false)
@@ -185,7 +199,7 @@ public class PlayerController : MonoBehaviour
             }
             else if (x.StateName == "Damage")
             {
-                ToggleControls(true);
+                
             }
             else if (x.StateName == "Inv")
             {
@@ -246,6 +260,7 @@ public class PlayerController : MonoBehaviour
         {
             transform.position = _spawnPoint.position;
             _anim.PlayAnimation("FallIntoCart");
+            _anim.SetSortingLayer("Back", 9);
         }
     }
 
@@ -257,14 +272,28 @@ public class PlayerController : MonoBehaviour
             return;
         _health--;
         _healthBar.UpdateHealth(_health);
-        ToggleControls(false);
+        
         _inv = true;
         _anim.PlayAnimation("Inv", 1);
         _anim.PlayAnimation("Damage");
+        StartCoroutine(DamageRoutine());
         if (_health == 0)
         {
             //Game Over
         }
+    }
+
+    private IEnumerator DamageRoutine()
+    {
+        ToggleControls(false);
+        yield return new WaitForSeconds(1.1f);
+        ToggleControls(true);
+    }
+
+    public void AddBird()
+    {
+        _birds++;
+        _healthBar.UpdateBirds(_birds);
     }
     
     #region INTERACTIVE_OBJECT_SETTINGS
@@ -340,6 +369,8 @@ public class PlayerController : MonoBehaviour
     
     public void Flute(InputAction.CallbackContext context)
     {
+        if (_heal <= 0)
+            return;
         if (context.performed)
         {
             if (_isGrounded)
@@ -371,6 +402,9 @@ public class PlayerController : MonoBehaviour
     
     public void StaffAttack(InputAction.CallbackContext context)
     {
+        if (!HasStaff)
+            return;
+        
         if (context.performed)
         {
             if (_isGrounded)
@@ -389,6 +423,21 @@ public class PlayerController : MonoBehaviour
             {
                 horizontal = 0;
                 _anim.PlayAnimation("Topot");
+                
+                List<Collider2D> _hitColliders = new List<Collider2D>();
+                var contactFilter = new ContactFilter2D();
+                contactFilter.useLayerMask = true;
+                contactFilter.layerMask = LayerMask.GetMask("HitBox");
+                Physics2D.OverlapCollider(_fearArea, contactFilter, _hitColliders);
+                if (_hitColliders.Count > 0)
+                {
+                    foreach (var hitCollider in _hitColliders)
+                    {
+                        var hitBox = hitCollider.GetComponent<HitBox>();
+                        if (hitBox != null)
+                            hitBox.Hit(HitType.Fear);
+                    }
+                }
             }
         }
     }
