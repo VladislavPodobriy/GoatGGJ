@@ -1,11 +1,9 @@
 using MainScripts.Spine;
-using Pixelplacement;
-using Spine;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using MainScripts.Audio;
+using MainScripts.Controllers;
 using UnityEngine;
-using static UnityEditor.ShaderData;
 using Random = UnityEngine.Random;
 
 public class People : InteractiveObject
@@ -30,24 +28,34 @@ public class People : InteractiveObject
         "Kolyad-kolyad-kolyadyn, I’m my father’s only son…"
     };
 
-
+    public AudioLibrary _audioLibrary;
     public DialogSystem _noHat;
     public DialogSystem _hat;
     public Item _bucket;
     public SpineSkinsController SkinsController;
-
+    public SpineAnimationController AnimationController;
+    
     private void Awake()
     {
         base.Awake();
-        lines = Language.Instance.language == Language.Instance.ukrainian ? ua : en;
+        lines = Env.Instance.language == Env.Instance.ukrainian ? ua : en;
     }
     private void Start()
     {
+        AnimationController.CreateAnimationState("idle", true);
+        AnimationController.OnAnimationEvent.AddListener(x =>
+        {
+            if (x.EventData.Data.Name == "tambu")
+            {
+                AudioController.PlayAtWorldPosition(_audioLibrary.GetRandom("Tambu"), transform.position);
+            }
+        });
         StartCoroutine(TalkRoutine());
     }
 
     private IEnumerator TalkRoutine()
     {
+        AnimationController.PlayAnimation("idle");
         while (true)
         {
             yield return new WaitForSeconds(Random.Range(5, 8f));

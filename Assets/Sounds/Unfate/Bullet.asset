@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67d45cfcd7b95f247b4402190b75704e, type: 3}
+  m_Name: Bullet
+  m_EditorClassIdentifier: 
+  _items:
+  - Key: Spawn
+    Clips:
+    - {fileID: 8300000, guid: c3bcfe0f37634de4786bd5131ec054de, type: 3}
+  - Key: Hit
+    Clips:
+    - {fileID: 8300000, guid: eff571697a9e4d24297c312f0539625f, type: 3}
+    - {fileID: 8300000, guid: 9a1616b7fffc5294bb3cb2f0700315fd, type: 3}
+    - {fileID: 8300000, guid: b235e55be98348f449a0d9e703fb6d17, type: 3}
+    - {fileID: 8300000, guid: c1d32773d376927458b5edc1ff708890, type: 3}

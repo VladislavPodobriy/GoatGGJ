@@ -1,0 +1,90 @@
+
+skeleton.png
+size: 2978,363
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+волосся мавка
+  rotate: false
+  xy: 2, 2
+  size: 246, 359
+  orig: 246, 359
+  offset: 0, 0
+  index: -1
+волосся мавка 2
+  rotate: false
+  xy: 250, 2
+  size: 246, 359
+  orig: 246, 359
+  offset: 0, 0
+  index: -1
+голова мавка 1
+  rotate: false
+  xy: 498, 2
+  size: 246, 359
+  orig: 246, 359
+  offset: 0, 0
+  index: -1
+голова мавка 2
+  rotate: false
+  xy: 746, 2
+  size: 246, 359
+  orig: 246, 359
+  offset: 0, 0
+  index: -1
+мавка
+  rotate: false
+  xy: 994, 2
+  size: 246, 359
+  orig: 246, 359
+  offset: 0, 0
+  index: -1
+мавка1
+  rotate: false
+  xy: 1242, 2
+  size: 246, 359
+  orig: 246, 359
+  offset: 0, 0
+  index: -1
+рука верх Л мавка
+  rotate: false
+  xy: 1490, 2
+  size: 246, 359
+  orig: 246, 359
+  offset: 0, 0
+  index: -1
+рука верх П мавка
+  rotate: false
+  xy: 1738, 2
+  size: 246, 359
+  orig: 246, 359
+  offset: 0, 0
+  index: -1
+рука низ Л мавка
+  rotate: false
+  xy: 1986, 2
+  size: 246, 359
+  orig: 246, 359
+  offset: 0, 0
+  index: -1
+рука низ П мавка
+  rotate: false
+  xy: 2234, 2
+  size: 246, 359
+  orig: 246, 359
+  offset: 0, 0
+  index: -1
+тулуб верх мавка
+  rotate: false
+  xy: 2482, 2
+  size: 246, 359
+  orig: 246, 359
+  offset: 0, 0
+  index: -1
+тулуб низ мавка
+  rotate: false
+  xy: 2730, 2
+  size: 246, 359
+  orig: 246, 359
+  offset: 0, 0
+  index: -1

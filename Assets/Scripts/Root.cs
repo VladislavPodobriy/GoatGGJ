@@ -1,3 +1,4 @@
+using MainScripts.Controllers;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -7,6 +8,7 @@ public class Root : MonoBehaviour
     public UnityEvent OnDead;
     public GameObject ConnectedRoot;
     public Bird Bird;
+    public AudioClip _destroyClip;
     
     public void Start()
     {
@@ -19,7 +21,10 @@ public class Root : MonoBehaviour
                 if (ConnectedRoot != null)
                     Destroy(ConnectedRoot.gameObject);
                 if (Bird != null)
-                    Bird.ToggleInteractable(true);
+                {
+                    Bird.Fly();
+                }
+                AudioController.PlayAtWorldPosition(_destroyClip, transform.position);
                 Destroy(gameObject);
             }
         });

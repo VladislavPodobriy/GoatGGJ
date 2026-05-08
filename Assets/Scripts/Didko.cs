@@ -1,4 +1,6 @@
 using System.Collections;
+using MainScripts.Audio;
+using MainScripts.Controllers;
 using MainScripts.Spine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -19,6 +21,7 @@ public class Didko : MonoBehaviour
     [SerializeField] private float _clawAttackDistance;
     [SerializeField] private float _dashVelocity;
     [SerializeField] private Vector2 _bombForce;
+    [SerializeField] private AudioLibrary _audioLibrary;
     
     private Rigidbody2D _rb;
     private SpineAnimationController _anim;
@@ -31,6 +34,9 @@ public class Didko : MonoBehaviour
     
     private void Start()
     {
+        if (Env.Instance.lowHp)
+            _hp = 3;
+        
         _rb = GetComponent<Rigidbody2D>();
         _anim = GetComponentInChildren<SpineAnimationController>();
         _player = FindObjectOfType<PlayerController>();
@@ -62,13 +68,16 @@ public class Didko : MonoBehaviour
             {
                 var velocity = Random.Range(_jumpVelocityRange.x, _jumpVelocityRange.y);
                 _rb.velocity = new Vector2(velocity * _faceDirection, 0);
+                AudioController.PlayAtWorldPosition(_audioLibrary.GetRandom("JumpStart"), transform.position);
             }
             else if (x.EventData.Data.Name == "jumpend")
             {
                 _rb.velocity = Vector2.zero;
+                AudioController.PlayAtWorldPosition(_audioLibrary.GetRandom("JumpEnd"), transform.position);
             }
             else if (x.EventData.Data.Name == "dashstart")
             {
+                AudioController.PlayAtWorldPosition(_audioLibrary.GetRandom("Dash"), transform.position);
                 _rb.velocity = new Vector2(_dashVelocity * _faceDirection, 0);
                 _dashDamageArea.gameObject.SetActive(true);
             }
@@ -76,6 +85,10 @@ public class Didko : MonoBehaviour
             {
                 _rb.velocity = Vector2.zero;
                 _dashDamageArea.gameObject.SetActive(false);
+            }
+            else if (x.EventData.Data.Name == "dashAttack_legHit")
+            {
+                AudioController.PlayAtWorldPosition(_audioLibrary.GetRandom("Knock"), transform.position);
             }
             else if (x.EventData.Data.Name == "clawhit")
             {
@@ -86,6 +99,7 @@ public class Didko : MonoBehaviour
             }
             else if (x.EventData.Data.Name == "throw")
             {
+                AudioController.PlayAtWorldPosition(_audioLibrary.GetRandom("Swoosh"), transform.position);
                 var rb = Instantiate(_bombPrefab, _bombOrigin.position, Quaternion.identity);
                 rb.AddForce(new Vector2(_bombForce.x * _faceDirection, _bombForce.y), ForceMode2D.Impulse);
                 rb.AddTorque(1, ForceMode2D.Impulse);
@@ -97,13 +111,9 @@ public class Didko : MonoBehaviour
             if (x == HitType.Fear)
                 return;
             _hp--;
-            if (_hp <= 5)
+            if ((!Env.Instance.lowHp && _hp < 6) || (Env.Instance.lowHp && _hp < 2))
             {
-                StopAllCoroutines();
-                _rb.velocity = Vector2.zero;
-                _anim.PlayAnimation("Idle");
-                _hitBox.gameObject.SetActive(false);
-                _fakeDialog.Activate();
+                ShowFinalScene(true);
             }
             else
             {
@@ -130,29 +140,34 @@ public class Didko : MonoBehaviour
         });
         
         _startScale = _anim.transform.localScale.x;
-        
+        _player.LastBattle = true;
+        AudioController.PlayAtWorldPosition(_audioLibrary.GetRandom("Laugh"), transform.position);
         _startDialog.Activate();
     }
 
-    private void Update()
+    public void ShowFinalScene(bool fake)
     {
-        if (_player.GetHealth() < 2)
-        {
-            StopAllCoroutines();
-            _rb.velocity = Vector2.zero;
-            _anim.PlayAnimation("Idle");
-            _hitBox.gameObject.SetActive(false);
+        StopAllCoroutines();
+        _rb.velocity = Vector2.zero;
+        _anim.PlayAnimation("Idle");
+        _hitBox.gameObject.SetActive(false);
+        _player.Idle();
+        
+        if (fake)
+            _fakeDialog.Activate();
+        else 
             _deadDialog.Activate();
-        }
     }
 
     public void Die()
     {
+        AudioController.PlayAtWorldPosition(_audioLibrary.GetRandom("Die"), transform.position);
         _anim.PlayAnimation("Die");
     }
     
     private IEnumerator StateRoutine()
     {
+        MusicController.Instance.PlayDidkoTheme();
         while (true)
         {
             var jumpsCount = Random.Range(1, 4);
@@ -175,13 +190,14 @@ public class Didko : MonoBehaviour
                 if (Mathf.Abs(transform.position.x - _player.transform.position.x) < _clawAttackDistance)
                 {
                     SetFaceToPlayer();
+                    AudioController.PlayAtWorldPosition(_audioLibrary.GetRandom("Roar"), transform.position);
                     _anim.PlayAnimation("ClawAttack");
                     _isBusy = true;
                     yield return new WaitUntil(() => !_isBusy);
                 }
             }
 
-            if (Random.Range(0, 100) < 0)
+            if (Random.Range(0, 100) < 50)
             {
                 SetFaceToPlayer();
                 _isBusy = true;
@@ -192,6 +208,7 @@ public class Didko : MonoBehaviour
             {
                 SetFaceToPlayer();
                 _isBusy = true;
+                AudioController.PlayAtWorldPosition(_audioLibrary.GetRandom("Laugh"), transform.position);
                 _anim.PlayAnimation("Throw");
                 yield return new WaitUntil(() => !_isBusy);
             }

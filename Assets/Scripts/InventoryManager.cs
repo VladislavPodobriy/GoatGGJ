@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using MainScripts.Controllers;
 using MainScripts.Spine;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,7 +20,7 @@ public class InventoryManager : MonoBehaviour
     public List<InventorySlot> slots = new List<InventorySlot>();
     public SpineSkinsController SkinsController;
     public GameObject Windows;
-    
+    public AudioClip TakeItem;
     private Item _stick;
     private Item _star;
     private Item _boroshno;
@@ -69,6 +70,8 @@ public class InventoryManager : MonoBehaviour
     {
         if (items.Exists(e => e.item == item)) return;
 
+        AudioController.PlayAtWorldPosition(TakeItem, transform.position);
+        
         if (item.data.title == "Палиця")
             _stick = item;
         else if (item.data.title == "Зірка")
@@ -104,16 +107,22 @@ public class InventoryManager : MonoBehaviour
             player.HasStaff = true;
             Remove(_stick);
             Remove(_star);
+            var text = Env.Instance.language == Env.Instance.ukrainian ? 
+                "Посох вже працює, але треба знайти останню частину" : 
+                "The staff is already working, but I need to find the last part";
             TalkTextController.SpawnTalkText(player.transform.position + new Vector3(-2, 2, 0), 
-                "Посох вже працює, але треба знайти останню частину");
+                text);
             TutorialController.Instance.ShowThird();
         }
         if (_fullBucket != null && _boroshno != null && !player.HomeOpened)
         {
             Windows.gameObject.SetActive(true);
             player.HomeOpened = true;
-            TalkTextController.SpawnTalkText(player.transform.position + new Vector3(-2, 2, 0), 
-                "Я зібрала все, що потрібно");
+            var text = Env.Instance.language == Env.Instance.ukrainian ? 
+                "Я зібрала все, що потрібно" : 
+                "I’ve gathered everything I need";
+            TalkTextController.SpawnTalkText(player.transform.position + new Vector3(-2, 4, 0), 
+                text);
         }
     }
 

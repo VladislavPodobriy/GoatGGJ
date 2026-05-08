@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -11,14 +12,18 @@ public enum HitType
 public class HitBox : MonoBehaviour
 {
     public UnityEvent<HitType> OnHit;
-
+    public List<HitType> IgnoredHitTypes = new();
+    
     private void Start()
     {
         gameObject.tag = "HitBox";
     }
     
-    public void Hit(HitType hitType)
+    public bool Hit(HitType hitType)
     {
+        if (IgnoredHitTypes.Contains(hitType))
+            return false;
         OnHit?.Invoke(hitType);
+        return true;
     }
 }

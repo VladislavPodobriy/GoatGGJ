@@ -17,8 +17,11 @@ public class Fate : InteractiveObject
             var player = FindObjectOfType<PlayerController>();
             player.HasBell = true;
             ParticleSystem.gameObject.SetActive(true);
+            var text = Env.Instance.language == Env.Instance.ukrainian ? 
+                "Тепер мені нічого не страшно!" : 
+                "I’m not afraid of anything anymore!";
             TalkTextController.SpawnTalkText(player.transform.position + new Vector3(-2, 2, 0), 
-                "Тепер мені нічого не страшно!");
+                text);
             Destroy(Bell.gameObject);
         });
         Dialog.Activate();

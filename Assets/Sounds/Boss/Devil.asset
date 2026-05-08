@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67d45cfcd7b95f247b4402190b75704e, type: 3}
+  m_Name: Devil
+  m_EditorClassIdentifier: 
+  _items:
+  - Key: Roar
+    Clips:
+    - {fileID: 8300000, guid: a87789ef39dba6748bc0084ec512a513, type: 3}
+  - Key: JumpStart
+    Clips:
+    - {fileID: 8300000, guid: b8416e6a417f4064a8021b70cc788a21, type: 3}
+  - Key: JumpEnd
+    Clips:
+    - {fileID: 8300000, guid: 8694fea9f8d908b4a89adc2f4866d8e1, type: 3}
+  - Key: Knock
+    Clips:
+    - {fileID: 8300000, guid: af800aa631edfc446a3e39fe61620a05, type: 3}
+  - Key: Laugh
+    Clips:
+    - {fileID: 8300000, guid: fa8e5675bc848ce4fb0d7df3e5807081, type: 3}
+  - Key: Swoosh
+    Clips:
+    - {fileID: 8300000, guid: 98c8760d732a2ef47a3065f16d6aefb5, type: 3}
+  - Key: Dash
+    Clips:
+    - {fileID: 8300000, guid: 9ce3c9042f72cd248a37084a194654d5, type: 3}
+  - Key: Die
+    Clips:
+    - {fileID: 8300000, guid: 51262a81c1b8a9c4194b86bab4cdebde, type: 3}

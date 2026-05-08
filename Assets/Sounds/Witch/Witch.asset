@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67d45cfcd7b95f247b4402190b75704e, type: 3}
+  m_Name: Witch
+  m_EditorClassIdentifier: 
+  _items:
+  - Key: Swoosh
+    Clips:
+    - {fileID: 8300000, guid: a848a9976359877438641603b9b13dc8, type: 3}
+  - Key: Laugh
+    Clips:
+    - {fileID: 8300000, guid: c47bd5a6c5003ac4bb38a627ee5b41af, type: 3}
+  - Key: Magic
+    Clips:
+    - {fileID: 8300000, guid: 71b9ba5bc3b34e24c82367c20ec32bc4, type: 3}
+  - Key: Die
+    Clips:
+    - {fileID: 8300000, guid: 68688be71282cac4496e2639b3646351, type: 3}

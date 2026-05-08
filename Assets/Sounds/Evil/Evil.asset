@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67d45cfcd7b95f247b4402190b75704e, type: 3}
+  m_Name: Evil
+  m_EditorClassIdentifier: 
+  _items:
+  - Key: Attack
+    Clips:
+    - {fileID: 8300000, guid: bc72b5eea3b31e44d8f662dff00afb3d, type: 3}
+    - {fileID: 8300000, guid: 8fd9033d23477304e88523ef7f5f082f, type: 3}
+    - {fileID: 8300000, guid: 7c9e47a8854448f41ba157dfff93f94c, type: 3}
+    - {fileID: 8300000, guid: cd17755380de975418b57346bd8360e5, type: 3}
+  - Key: Damage
+    Clips:
+    - {fileID: 8300000, guid: 9e46803d703a0174faf14d81bd306302, type: 3}
+    - {fileID: 8300000, guid: f445c37156a90f548b5b1e6c90f56751, type: 3}

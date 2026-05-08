@@ -1,4 +1,6 @@
 using System.Collections;
+using MainScripts.Audio;
+using MainScripts.Controllers;
 using MainScripts.Spine;
 using Pixelplacement;
 using UnityEngine;
@@ -34,6 +36,7 @@ public class Witch : MonoBehaviour
     [SerializeField] private AnimationCurve _attackYCurve;
     [SerializeField] private Vector2 _attackTimeoutRange;
     [SerializeField] private Vector2 _suckTimeoutRange;
+    [SerializeField] private AudioLibrary _audioLibrary;
     
     private int _faceDirection = 1;
     private float _startScale;
@@ -48,6 +51,11 @@ public class Witch : MonoBehaviour
     
     private void Start()
     {
+        _flyY = transform.position.y + 1;
+        
+        if (Env.Instance.lowHp)
+            _health = 2;
+        
         _anim = GetComponentInChildren<SpineAnimationController>();
         _player = FindObjectOfType<PlayerController>();
         _rb = GetComponent<Rigidbody2D>();
@@ -62,6 +70,15 @@ public class Witch : MonoBehaviour
         _anim.CreateAnimationState("FlySuck", true);
         _anim.CreateAnimationState("Damage", false);
         
+        _anim.OnAnimationEvent.AddListener((x) =>
+        {
+            if (x.EventData.Data.Name == "flyAttack_start")
+            {
+                _damageArea.gameObject.SetActive(true);
+                AudioController.PlayAtWorldPosition(_audioLibrary.GetRandom("Swoosh"), transform.position);
+            }
+        });
+        
         _hitBox.OnHit.AddListener((x) =>
         {
             if (!_active)
@@ -71,6 +88,7 @@ public class Witch : MonoBehaviour
             _health -= 1;
             if (_health == 0)
             {
+                AudioController.PlayAtWorldPosition(_audioLibrary.GetRandom("Die"), transform.position);
                 StopAllCoroutines();
                 _particleSystem.gameObject.SetActive(false);
                 _anim.PlayAnimation("FlyIdle");
@@ -80,6 +98,7 @@ public class Witch : MonoBehaviour
                 {
                     _well.ToggleInteractable(true);
                     _roots.SetActive(false);
+                    MusicController.Instance.PlayMainTheme();
                     Destroy(gameObject);
                 });
             }
@@ -123,6 +142,7 @@ public class Witch : MonoBehaviour
     
     public void StartBattle()
     {
+        MusicController.Instance.PlayWitchTheme();
         _roots.SetActive(true);
         _startDialog.ToggleInteractable(false);
         _anim.PlayAnimation("FlyIdle");
@@ -175,6 +195,7 @@ public class Witch : MonoBehaviour
     {
         _rb.velocity = Vector2.zero;
         _anim.PlayAnimation("FlySuck");
+        AudioController.PlayAtWorldPosition(_audioLibrary.GetRandom("Magic"), transform.position, 0.5f);
         var success = true;
         _particleSystem.gameObject.SetActive(true);
         var timer = 0f;
@@ -182,7 +203,7 @@ public class Witch : MonoBehaviour
         {
             SetFaceToPlayer();
             timer += Time.deltaTime;
-            if (Mathf.Abs(transform.position.x - _player.transform.position.x) > 6)
+            if (Mathf.Abs(transform.position.x - _player.transform.position.x) > 8)
             {
                 success = false;
                 break;
@@ -198,9 +219,11 @@ public class Witch : MonoBehaviour
     
     private IEnumerator AttackRoutine()
     {
+        AudioController.PlayAtWorldPosition(_audioLibrary.GetRandom("Laugh"), transform.position);
         _anim.PlayAnimation("FlyAttack");
-        _rb.velocity = new Vector2(6, 0);
-        _damageArea.gameObject.SetActive(true);
+        _rb.velocity = new Vector2(3 * _faceDirection, 0);
+        yield return new WaitForSeconds(1);
+        Debug.Log("START FLY");
         Tween.Value(transform.position.y, _flyY - 2, value =>
         {
             transform.position = new Vector3(transform.position.x, value);

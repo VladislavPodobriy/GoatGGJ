@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67d45cfcd7b95f247b4402190b75704e, type: 3}
+  m_Name: People
+  m_EditorClassIdentifier: 
+  _items:
+  - Key: Tambu
+    Clips:
+    - {fileID: 8300000, guid: e93d4d2a3f25aca45a9e90c61dedbb2a, type: 3}
+    - {fileID: 8300000, guid: feb5ac4a8754d614f862d3b481cc9b40, type: 3}
+    - {fileID: 8300000, guid: 9dc2ed26e43ba8b4385d97155062c7e9, type: 3}
+    - {fileID: 8300000, guid: 9468aeb31d93fc844a4d82ec3fd8dc5f, type: 3}

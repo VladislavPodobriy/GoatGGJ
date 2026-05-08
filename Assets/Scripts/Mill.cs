@@ -17,8 +17,11 @@ public class Mill : MonoBehaviour
             var player = FindObjectOfType<PlayerController>();
             _blocked = false;
             Jorno.ToggleInteractable(true);
-            TalkTextController.SpawnTalkText(player.transform.position + new Vector3(-2, 2, 0), 
-                "Схоже тепер жорна працюватимуть");
+            
+            var text = Env.Instance.language == Env.Instance.ukrainian ? 
+                "Схоже тепер жорна працюватимуть" : 
+                "The mill is finally grinding";
+            TalkTextController.SpawnTalkText(player.transform.position + new Vector3(-2, 2, 0), text);
         });
     }
     

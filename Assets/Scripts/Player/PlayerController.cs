@@ -1,16 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using MainScripts.Audio;
+using MainScripts.Controllers;
 using MainScripts.Spine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class PlayerController : MonoBehaviour
 {
     [Header("Player Settings")]
     [SerializeField] private int _health;
-    [SerializeField] private int _heal;
+    [FormerlySerializedAs("_heal")] [SerializeField] private int Heal;
     [SerializeField] private int _birds;
     [SerializeField] float speed;
     [SerializeField] float jumpingPower;
@@ -18,6 +21,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject menu;
     [SerializeField] private Transform goatPlace;
     [SerializeField] private Transform didkoPlace;
+    [SerializeField] private Transform introCanvas;
+    [SerializeField] private Transform oneHpCanvas;
+    [SerializeField] private AudioLibrary _audioLibrary;
     
     [Header("Grounding")]
     [SerializeField] LayerMask groundLayer;
@@ -65,26 +71,59 @@ public class PlayerController : MonoBehaviour
     public bool LongAttackAllowed = true;
     private bool _inv = false;
     private DialogSystem _finalDialog;
+    public bool LastBattle;
+    private bool _canOpenMenu;
+    public bool PowerFlute;
+    
+    [SerializeField]
+    private Hiter _hornAttackHiter;
+    [SerializeField] private GameObject _cheatCanvas;
     
     private void Awake()
     {
+        if (Env.Instance.isDebug)
+        {
+            _skipSpawn = true;
+        }
+            
         ComponentSetup();
     }
     
     private void Start()
     {
+        if (Env.Instance.endlessHeal)
+        {
+            Heal = 0;
+            _healthBar.UpdateHeal(0);
+        }
+
         AnimationSetup();
     }
 
+    public void ShowCheatSheet()
+    {
+        if (_canOpenMenu)
+        {
+            _cheatCanvas.gameObject.SetActive(true);
+        }
+    }
+    
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Escape))
+        if (_canOpenMenu && Input.GetKeyUp(KeyCode.Escape))
         {
-            menu.gameObject.SetActive(!menu.gameObject.activeSelf);
-            if (menu.gameObject.activeSelf)
-                Time.timeScale = 0;
+            if (_cheatCanvas.gameObject.activeSelf)
+            {
+                _cheatCanvas.gameObject.SetActive(false);
+            }
             else
-                Time.timeScale = 1;
+            {
+                menu.gameObject.SetActive(!menu.gameObject.activeSelf);
+                if (menu.gameObject.activeSelf)
+                    Time.timeScale = 0;
+                else
+                    Time.timeScale = 1;
+            }
         }
         
         if (_canMove)
@@ -120,7 +159,12 @@ public class PlayerController : MonoBehaviour
     {
         var newIsGrounded = Physics2D.OverlapCapsule(groundCheck.position, new Vector2(0.5f, 0.1f), CapsuleDirection2D.Horizontal, 0, groundLayer);
         if (newIsGrounded && !_isGrounded && _isJump)
+        {
+            AudioController.PlayAtWorldPosition(_audioLibrary.GetRandom("Run"), transform.position, 0.7f);
             _anim.PlayAnimation("Jump_end");
+            _isJump = false;
+        }
+
         _isGrounded = newIsGrounded;
         _rb.velocity = new Vector2(_moveSpeed, _rb.velocity.y);
     }
@@ -139,6 +183,13 @@ public class PlayerController : MonoBehaviour
     public void ShowFinalDialog(DialogSystem finalDialog)
     {
         //Final epic scene setup
+        _canOpenMenu = false;
+        _isJump = false;
+        _canMove = false;
+        _moveSpeed = 0;
+        _rb.velocity = Vector2.zero;
+        _jumpAllowed = false;
+        _isGrounded = true;
         var didko = FindObjectOfType<Didko>();
         transform.position = goatPlace.transform.position;
         didko.transform.position = didkoPlace.transform.position;
@@ -146,8 +197,10 @@ public class PlayerController : MonoBehaviour
         _anim.transform.localScale = new Vector3(-FaceDirection * 0.65f, 0.65f, 1);
         didko.SetFaceDirection(-1);
         didko.Die();
+        _rb.velocity = Vector2.zero;
         
         _anim.PlayAnimation("StaffAttack");
+        AudioController.PlayAtWorldPosition(_audioLibrary.GetRandom("Staff"), transform.position);
         _finalDialog = finalDialog;
     }
 
@@ -215,7 +268,7 @@ public class PlayerController : MonoBehaviour
             .AddTransition("Idle", true, () => _moveSpeed == 0);
 
         _anim.CreateAnimationState("StaffAttack", false)
-            .AddTransition("Run", true, () => _moveSpeed != 0)
+            .AddTransition("Run", false, () => _moveSpeed != 0)
             .AddTransitionOnComplete("Idle");
 
         _anim.CreateAnimationState("FallIntoCart", false)
@@ -245,11 +298,13 @@ public class PlayerController : MonoBehaviour
             {
                 _jumpAllowed = true;
                 _canMove = true;
+                _hornAttackHiter.Toggle(false);
             }
             else if (x.StateName == "HornAttack_Long")
             {
                 _jumpAllowed = true;
                 _canMove = true;
+                _hornAttackHiter.Toggle(false);
             }
             else if (x.StateName == "Damage")
             {
@@ -261,10 +316,23 @@ public class PlayerController : MonoBehaviour
             }
             else if (x.StateName == "Flute")
             {
-                _health = 5;
-                _heal--;
+                if (!Env.Instance.endlessHeal)
+                {
+                    Heal--;
+                    _healthBar.UpdateHeal(Heal);
+                }
+                
+                if (PowerFlute)
+                    _health = 6;
+                else
+                {
+                    _health += 3;
+                    if (_health > 6)
+                        _health = 6;
+                }
+
                 _healthBar.UpdateHealth(_health);
-                _healthBar.UpdateHeal(_heal);
+                oneHpCanvas.gameObject.SetActive(false);
             }
         });
 
@@ -272,25 +340,11 @@ public class PlayerController : MonoBehaviour
         {
             if (x.EventData.Data.Name == "HornAttack_End")
             {
+                _hornAttackHiter.Toggle(true);
                 if (_leftBtnPressed)
                 {
                     _anim.PlayAnimation("HornAttack_Long");
                     _moveSpeed = 12 * FaceDirection;
-                }
-
-                List<Collider2D> _hitColliders = new List<Collider2D>();
-                var contactFilter = new ContactFilter2D();
-                contactFilter.useLayerMask = true;
-                contactFilter.layerMask = LayerMask.GetMask("HitBox");
-                Physics2D.OverlapCollider(_hornAttackArea, contactFilter, _hitColliders);
-                if (_hitColliders.Count > 0)
-                {
-                    foreach (var hitCollider in _hitColliders)
-                    {
-                        var hitBox = hitCollider.GetComponent<HitBox>();
-                        if (hitBox != null)
-                            hitBox.Hit(HitType.Horn);
-                    }
                 }
             }
             else if (x.EventData.Data.Name == "HornAttackLong_MoveEnd")
@@ -299,56 +353,112 @@ public class PlayerController : MonoBehaviour
             }
             else if (x.EventData.Data.Name == "staffattack")
             {
+                _canMove = true;
+                _jumpAllowed = true;
+                
                 if (_finalDialog != null)
                 {
                     StartCoroutine(ShowFinalDialogRoutine());
                 }
-                
+                AudioController.PlayAtWorldPosition(_audioLibrary.GetRandom("Staff"), transform.position);
                 var instance = Instantiate(_staffParticlesPrefab, _staffParticlesOrigin.position, Quaternion.identity);
                 instance.transform.localScale = new Vector3(FaceDirection, 1, 1);
             }
+            else if (x.EventData.Data.Name == "step")
+            {
+                AudioController.PlayAtWorldPosition(_audioLibrary.GetRandom("Run"), transform.position, 0.7f);
+            }
+            else if (x.EventData.Data.Name == "topot")
+            {
+                AudioController.PlayAtWorldPosition(_audioLibrary.GetRandom("Run"), transform.position, 0.7f);
+            }
+            else if (x.EventData.Data.Name == "flute_start")
+            {
+                AudioController.PlayAtWorldPosition(_audioLibrary.GetRandom("Carol"), transform.position);
+            }
+            else if (x.EventData.Data.Name == "fallIntoCart_hit")
+            {
+                AudioController.PlayAtWorldPosition(_audioLibrary.GetRandom("Cart"), transform.position);
+            }
         });
 
+        _hornAttackHiter.OnHit.AddListener(() =>
+        {
+            AudioController.PlayAtWorldPosition(_audioLibrary.GetRandom("Punch"), transform.position, 0.3f);
+        });
+        
         if (_skipSpawn)
         {
             _anim.PlayAnimation("Idle");
             ToggleControls(true);
             _anim.SetSortingLayer("Default", 0);
+            _rb.simulated = true;
+            _canOpenMenu = true;
         }
         else
         {
-            transform.position = _spawnPoint.position;
-            _anim.PlayAnimation("FallIntoCart");
-            _anim.SetSortingLayer("Back", 9);
+            StartCoroutine(SpawnRoutine());
         }
     }
     
     #endregion
 
+    public IEnumerator SpawnRoutine()
+    {
+        transform.position = _spawnPoint.position;
+        _anim.gameObject.SetActive(false);
+        introCanvas.gameObject.SetActive(true);
+        yield return new WaitForSeconds(7f);
+        introCanvas.gameObject.SetActive(false);
+        _anim.gameObject.SetActive(true);
+        _anim.PlayAnimation("FallIntoCart");
+        _anim.SetSortingLayer("Back", 9);
+        _rb.simulated = true;
+        _canOpenMenu = true;
+    }
+    
     public void Die()
     {
         _anim.PlayAnimation("Die");
     }
-
-    public void Live()
+    
+    public void Idle()
     {
         _anim.PlayAnimation("Idle");
+        _rb.velocity = Vector2.zero;
+        _moveSpeed = 0;
+        _canMove = false;
+        ToggleControls(false);
+        Debug.Log("IDLE");
     }
     
     public void GetDamage()
     {
-        if (_inv)
+        if (_inv || _anim.GetActiveStateName() == "HornAttack_Long")
             return;
         _health--;
         _healthBar.UpdateHealth(_health);
+        AudioController.PlayAtWorldPosition(_audioLibrary.GetRandom("Damage"), transform.position);
         
-        _inv = true;
-        _anim.PlayAnimation("Inv", 1);
-        _anim.PlayAnimation("Damage");
-        StartCoroutine(DamageRoutine());
-        if (_health == 0)
+        if (_health == 1)
+            oneHpCanvas.gameObject.SetActive(true);
+
+        if (_health > 0)
         {
-            SceneManager.LoadScene(0);
+            _inv = true;
+            _anim.PlayAnimation("Inv", 1);
+            _anim.PlayAnimation("Damage");
+            StartCoroutine(DamageRoutine());
+        }
+        else
+        {
+            if (!LastBattle)
+                SceneManager.LoadScene(0);
+            else
+            {
+                oneHpCanvas.gameObject.SetActive(false);
+                FindObjectOfType<Didko>().ShowFinalScene(false);
+            }
         }
     }
 
@@ -357,12 +467,14 @@ public class PlayerController : MonoBehaviour
         ToggleControls(false);
         yield return new WaitForSeconds(1.1f);
         ToggleControls(true);
+        _canMove = true;
+        _jumpAllowed = true;
     }
 
-    public void AddBird()
+    public void SetHeal(int value)
     {
-        _birds++;
-        _healthBar.UpdateBirds(_birds);
+        Heal = value;
+        _healthBar.UpdateHeal(Heal);
     }
     
     #region INTERACTIVE_OBJECT_SETTINGS
@@ -395,7 +507,7 @@ public class PlayerController : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context)
     {
-        if(context.performed && _isGrounded && _jumpAllowed)
+        if(context.performed && _isGrounded && _jumpAllowed && !_isJump)
         {
             _anim.PlayAnimation("Jump_start");
             _isJump = true;
@@ -446,7 +558,7 @@ public class PlayerController : MonoBehaviour
                 {
                     _nearestInteractive.Interact();
                 }
-                else if (_heal > 0)
+                else if (Heal > 0 || Env.Instance.endlessHeal)
                 {
                     horizontal = 0;
                     _anim.PlayAnimation("Flute");
@@ -476,7 +588,11 @@ public class PlayerController : MonoBehaviour
         {
             if (_isGrounded)
             {
-                horizontal = 0;
+                if (_anim.GetActiveStateName() == "StaffAttack")
+                    return;
+                _moveSpeed = 0;
+                _canMove = false;
+                _jumpAllowed = false;
                 _anim.PlayAnimation("StaffAttack");
             }
         }
@@ -520,6 +636,8 @@ public class PlayerController : MonoBehaviour
         {
             if (_isGrounded)
             {
+                if (_anim.GetActiveStateName() == "HornAttack" || _anim.GetActiveStateName() == "HornAttack_Long")
+                    return;
                 _anim.PlayAnimation("HornAttack");
                 _moveSpeed = 0;
                 _canMove = false;

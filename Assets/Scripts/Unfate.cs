@@ -1,4 +1,6 @@
 using System.Collections;
+using MainScripts.Audio;
+using MainScripts.Controllers;
 using MainScripts.Spine;
 using Pixelplacement;
 using UnityEngine;
@@ -37,9 +39,13 @@ public class Unfate : MonoBehaviour
     [SerializeField] private GameObject _wheat;
     [SerializeField] private GameObject _fate;
     [SerializeField] private GameObject _ropes;
+    [SerializeField] private AudioLibrary _audioLibrary;
     
     private void Start()
     {
+        if (Env.Instance.lowHp)
+            _health = 3;
+        
         _player = FindObjectOfType<PlayerController>();
         _anim = GetComponentInChildren<SpineAnimationController>();
         _hitBox = GetComponentInChildren<HitBox>();
@@ -72,7 +78,8 @@ public class Unfate : MonoBehaviour
             }
             else if (x.EventData.Data.Name == "hit")
             {
-                
+                _damageArea.gameObject.SetActive(true);
+                AudioController.PlayAtWorldPosition(_audioLibrary.GetRandom("Woosh"), transform.position, 0.7f);
             }
         });
         
@@ -84,6 +91,7 @@ public class Unfate : MonoBehaviour
             _health--;
             if (_health == 0)
             {
+                MusicController.Instance.PlayMainTheme();
                 _fate.SetActive(true);
                 _wheat.SetActive(true);
                 _ropes.SetActive(false);
@@ -98,6 +106,7 @@ public class Unfate : MonoBehaviour
 
         _anim.PlayAnimation("Float");
         
+        AudioController.PlayAtWorldPosition(_audioLibrary.GetRandom("Spawn"), transform.position);
         _dialog.Activate();
         _dialog.OnComplete.AddListener(() =>
         {
@@ -112,6 +121,7 @@ public class Unfate : MonoBehaviour
     
     private IEnumerator MainStateRoutine()
     {
+        MusicController.Instance.PlayUnfateTheme();
         yield return new WaitForSeconds(1f);
         while (true)
         {
@@ -125,10 +135,8 @@ public class Unfate : MonoBehaviour
                 if (distance > 2 && distance < 4 && !attacked)
                 {
                     _anim.PlayAnimation("MeleeAttack");
-                    
                     attacked = true;
                     _isBusy = true;
-                    _damageArea.gameObject.SetActive(true);
                     yield return new WaitUntil(() => !_isBusy);
                     _damageArea.gameObject.SetActive(false);
                 }
@@ -144,6 +152,7 @@ public class Unfate : MonoBehaviour
             SetFaceToPlayer();
             if (_ultimateTimer >= _ultimateTimeout)
             {
+                AudioController.PlayAtWorldPosition(_audioLibrary.GetRandom("Laugh"), transform.position, 0.4f);
                 _hitBox.gameObject.SetActive(false);
                 bool onPosition = false;
                 Tween.Position(_anim.transform, transform.position + new Vector3(0, 4, 0), 2f, 0f, Tween.EaseInOut, completeCallback: () =>
@@ -155,7 +164,7 @@ public class Unfate : MonoBehaviour
                 {
                     var x = _player.transform.position.x +  Random.Range(-1f, 1f);
                     Instantiate(FateBullet, new Vector3(x, _ultimateY, 0), Quaternion.identity);
-                    yield return new WaitForSeconds(Random.Range(0.3f, 0.6f));
+                    yield return new WaitForSeconds(Random.Range(0.5f, 0.7f));
                 }
                 onPosition = false;
                 Tween.Position(_anim.transform, transform.position, 2f, 0f, Tween.EaseInOut, completeCallback: () =>
@@ -168,6 +177,7 @@ public class Unfate : MonoBehaviour
             }
             else
             {
+                AudioController.PlayAtWorldPosition(_audioLibrary.GetRandom("Cry"), transform.position);
                 _anim.PlayAnimation("RangeAttack");
                 _isBusy = true;
                 _bulletIndex = 0;

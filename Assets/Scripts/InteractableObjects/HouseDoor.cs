@@ -9,12 +9,12 @@ public class HouseDoor : InteractiveObject
     string text;
 
     readonly string ua = "Я ще не все знайшла";
-    readonly string en = "I haven't found it, yet";
+    readonly string en = "I still haven’t found everything";
 
     private void Awake()
     {
         base.Awake();
-        text = Language.Instance.language == Language.Instance.ukrainian ? ua : en;
+        text = Env.Instance.language == Env.Instance.ukrainian ? ua : en;
     }
 
     public override void Interact()

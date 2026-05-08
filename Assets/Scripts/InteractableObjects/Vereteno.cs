@@ -23,8 +23,15 @@ public class Vereteno : InteractiveObject
         _player = FindObjectOfType<PlayerController>();
         _trigger.OnTriggerEnter.AddListener(() =>
         {
-            _active = true;
-            ToggleInteractable(true);
+            if (!_active)
+            {
+                var text = Env.Instance.language == Env.Instance.ukrainian ? 
+                    "Це що, величезне веретено? Дивина..." :
+                    "Is that a giant spindle? How strange…";
+                TalkTextController.SpawnTalkText(_player.transform.position + new Vector3(-2, 2, 0), text);
+                _active = true;
+                ToggleInteractable(true);
+            }
         });
         ToggleInteractable(false);
     }

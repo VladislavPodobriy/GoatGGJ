@@ -24,7 +24,9 @@ public class DialogSystem : InteractiveObject
     [SerializeField] Image npcAvatarUI;
     [SerializeField] Image playerAvatarUI;
 
+    [SerializeField] string playerNameEn;
     [SerializeField] string playerName;
+    [SerializeField] private string charNameEn;
     [SerializeField] string charName;
     [SerializeField] Sprite charAvatar;
     [SerializeField] Sprite playerAvatar;
@@ -34,7 +36,8 @@ public class DialogSystem : InteractiveObject
     private bool isActive;
     private PlayerController _player;
     private bool _canClick = false;
-
+    private bool _mouseDown = false;
+    
     public override void Interact()
     {
         Activate();
@@ -52,15 +55,18 @@ public class DialogSystem : InteractiveObject
     private void ShowLine()
     {
         DialogueLine line = dialogue[dialogueStep];
-        string text = Language.Instance.language == Language.Instance.ukrainian ? line.text_ua : line.text_en;
+        string text = Env.Instance.language == Env.Instance.ukrainian ? line.text_ua : line.text_en;
         textUI.SetText(text);
         UpdateSpeaker(line.isNPC);
     }
 
     private void Update()
     {
-        if (Input.GetMouseButtonUp(0) && _canClick)
+        if (Input.GetMouseButtonDown(0) && _canClick)
+            _mouseDown = true;
+        if (Input.GetMouseButtonUp(0) && _canClick && _mouseDown)
         {
+            _mouseDown = false;
             dialogueStep++;
             if (dialogueStep == dialogue.Length)
             {
@@ -83,12 +89,14 @@ public class DialogSystem : InteractiveObject
         if (isNPC)
         {
             npcAvatarUI.sprite = charAvatar;
-            speakerNameUI.SetText(charName);
+            var value = Env.Instance.language == Env.Instance.ukrainian ? charName : charNameEn;
+            speakerNameUI.SetText(value);
         }
         else
         {
             playerAvatarUI.sprite = playerAvatar;
-            speakerNameUI.SetText(playerName);
+            var value = Env.Instance.language == Env.Instance.ukrainian ? playerName : playerNameEn;
+            speakerNameUI.SetText(value);
         }
         playerAvatarUI.gameObject.SetActive(!isNPC);
         npcAvatarUI.gameObject.SetActive(isNPC);

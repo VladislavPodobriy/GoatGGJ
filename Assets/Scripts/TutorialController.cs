@@ -20,7 +20,7 @@ public class TutorialController : Singleton<TutorialController>
 
     public IEnumerator Show()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(10);
         First.SetActive(true);
         yield return new WaitForSeconds(2);
         Second.SetActive(true);

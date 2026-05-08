@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3201377875323375833}
   - component: {fileID: 2385325448533302723}
   - component: {fileID: 4722637635950594584}
+  - component: {fileID: 5831109173787389839}
   m_Layer: 0
   m_Name: Spine GameObject (skeleton)
   m_TagString: Untagged
@@ -121,6 +122,34 @@ MonoBehaviour:
   _animationName: Idle
   loop: 1
   timeScale: 1
+--- !u!114 &5831109173787389839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 803223294930381768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f459e3fd51342d54ab293817e71dd157, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnAnimationComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  OnAnimationEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnAnimationChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  OnEnterViewport:
+    m_PersistentCalls:
+      m_Calls: []
+  OnExitViewport:
+    m_PersistentCalls:
+      m_Calls: []
+  _isVisible: 0
 --- !u!1 &3690506007740929649
 GameObject:
   m_ObjectHideFlags: 0
@@ -170,6 +199,7 @@ MonoBehaviour:
   OnHit:
     m_PersistentCalls:
       m_Calls: []
+  IgnoredHitTypes: 0100000003000000
 --- !u!58 &6079798966370446471
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -311,7 +341,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef5a76631a6b6f542a5cf3fe051f3c52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Tip: "\u041F\u0456\u0434\u0456\u0431\u0440\u0430\u0442\u0438"
+  Tip: "\u0414\u043E\u043F\u043E\u043C\u043E\u0433\u0442\u0438"
+  Tip_Ua: "\u0414\u043E\u043F\u043E\u043C\u043E\u0433\u0442\u0438"
+  Tip_En: Help
   Collider: {fileID: 1324864489338138872}
   IsInteractable: 0
 --- !u!58 &1324864489338138872
@@ -452,3 +484,4 @@ MonoBehaviour:
       m_Calls: []
   ConnectedRoot: {fileID: 0}
   Bird: {fileID: 4385491531510630949}
+  _destroyClip: {fileID: 8300000, guid: 25705ce572172fa47a4682dd129c0829, type: 3}

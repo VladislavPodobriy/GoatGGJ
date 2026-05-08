@@ -110,6 +110,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ExplosionPrefab: {fileID: 4700014063102769816, guid: 2b4df8cce7d15b14ba117c5e526f100a, type: 3}
+  ExplosionClip: {fileID: 8300000, guid: 05ea4fa45d230da4fbdce745a150bdd2, type: 3}
 --- !u!1 &8037493161485282861
 GameObject:
   m_ObjectHideFlags: 0

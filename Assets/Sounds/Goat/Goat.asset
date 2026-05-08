@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67d45cfcd7b95f247b4402190b75704e, type: 3}
+  m_Name: Goat
+  m_EditorClassIdentifier: 
+  _items:
+  - Key: Run
+    Clips:
+    - {fileID: 8300000, guid: a8242c5387c2aa34899e6c3ae9556ff1, type: 3}
+    - {fileID: 8300000, guid: 2d3f48b6cc00f5b419bf53bac30e1a09, type: 3}
+    - {fileID: 8300000, guid: d1a47352e6954ec4fa46b9f37c12dabf, type: 3}
+    - {fileID: 8300000, guid: 4cb4158bf5680f74cad21dd04b7054f6, type: 3}
+  - Key: Damage
+    Clips:
+    - {fileID: 8300000, guid: 7c7359bd3673c3b4fa105a4b1ff9881d, type: 3}
+  - Key: Punch
+    Clips:
+    - {fileID: 8300000, guid: d66c8f56224112349818fda75b6371be, type: 3}
+  - Key: Carol
+    Clips:
+    - {fileID: 8300000, guid: 18e8099d1203a2b449624d6c5f22ac3e, type: 3}
+  - Key: Staff
+    Clips:
+    - {fileID: 8300000, guid: 15182feb76f0ea54896edcd9d486b607, type: 3}
+  - Key: Cart
+    Clips:
+    - {fileID: 8300000, guid: 418e22bc394a04c4abc983c7c69e6984, type: 3}

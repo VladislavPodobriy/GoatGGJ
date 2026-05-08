@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using MainScripts.Audio;
+using MainScripts.Controllers;
 using MainScripts.Spine;
 using UnityEngine;
 
@@ -41,6 +43,7 @@ public class Domovoy : MonoBehaviour
     [SerializeField] 
     private int _standHp = 5;
 
+    [SerializeField] private AudioLibrary _audioLibrary;
     List<string> text;
 
     List<string> ua = new List<string>
@@ -68,11 +71,17 @@ public class Domovoy : MonoBehaviour
 
     private void Awake()
     {
-        text = Language.Instance.language == Language.Instance.ukrainian ? ua : en;
+        text = Env.Instance.language == Env.Instance.ukrainian ? ua : en;
     }
 
     void Start()
     {
+        if (Env.Instance.lowHp)
+        {
+            _hp = 3;
+            _standHp = 2;
+        }
+
         _anim = GetComponentInChildren<SpineAnimationController>();
         _skins = GetComponentInChildren<SpineSkinsController>();
         _rb = GetComponent<Rigidbody2D>();
@@ -100,15 +109,19 @@ public class Domovoy : MonoBehaviour
             else if (x.EventData.Data.Name == "rollend")
                 _rb.velocity = Vector2.zero;
             else if (x.EventData.Data.Name == "jumpstart")
+            {
                 _rb.velocity = new Vector2(-_faceDirection * _jumpSpeed, 0);
+                AudioController.PlayAtWorldPosition(_audioLibrary.GetRandom("JumpStart"), transform.position);
+            }
             else if (x.EventData.Data.Name == "jumpend")
             {
-                JumpDamageArea.gameObject.SetActive(true);
+                AudioController.PlayAtWorldPosition(_audioLibrary.GetRandom("JumpEnd"), transform.position);
+                StartCoroutine(JumpDamage());
                 _rb.velocity = Vector2.zero;
             }
             else if (x.EventData.Data.Name == "kick")
             {
-                KickDamageArea.gameObject.SetActive(true);
+                StartCoroutine(KickDamage());
             }
         });
         
@@ -119,8 +132,6 @@ public class Domovoy : MonoBehaviour
             else if (x.StateName == "Jump" || x.StateName == "Kick")
             {
                 _isJumping = false;
-                KickDamageArea.gameObject.SetActive(false);
-                JumpDamageArea.gameObject.SetActive(false);
             }
         });
         
@@ -143,6 +154,8 @@ public class Domovoy : MonoBehaviour
             }
             else
             {
+                MusicController.Instance.PlayMainTheme();
+                AudioController.PlayAtWorldPosition(_audioLibrary.GetRandom("Cry"), transform.position);
                 StopAllCoroutines();
                 _rb.velocity = Vector2.zero;
                 _anim.PlayAnimation("RollIdle");
@@ -159,10 +172,12 @@ public class Domovoy : MonoBehaviour
             Exit.gameObject.SetActive(false);
             Ladder.ToggleInteractable(false);
             Dialog.Activate();
+            AudioController.PlayAtWorldPosition(_audioLibrary.GetRandom("Roar"), transform.position);
         });
         
         Dialog.OnComplete.AddListener(() =>
         {
+            MusicController.Instance.PlayBrownieTheme();
             _stateRoutine = StartCoroutine(RollStateRoutine());
         });
         
@@ -175,12 +190,27 @@ public class Domovoy : MonoBehaviour
             JumpDamageArea.gameObject.SetActive(false);
             RollDamageArea.gameObject.SetActive(false);
             KickDamageArea.gameObject.SetActive(false);
+            GetComponent<AudioSource>().enabled = true;
             StartCoroutine(Talk());
         });
         
         _anim.PlayAnimation("RollIdle");
     }
 
+    private IEnumerator JumpDamage()
+    {
+        JumpDamageArea.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.3f);
+        JumpDamageArea.gameObject.SetActive(false);
+    }
+    
+    private IEnumerator KickDamage()
+    {
+        KickDamageArea.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.2f);
+        KickDamageArea.gameObject.SetActive(false);
+    }
+    
     private IEnumerator Talk()
     {
         while (true)
@@ -222,7 +252,10 @@ public class Domovoy : MonoBehaviour
         {
             _isJumping = true;
             if (Vector2.Distance(transform.position, _player.transform.position) < 3 && Random.Range(0, 100) < 50)
+            {
+                AudioController.PlayAtWorldPosition(_audioLibrary.GetRandom("Kick"), transform.position);
                 _anim.PlayAnimation("Kick");
+            }
             else
                 _anim.PlayAnimation("Jump");
             
@@ -257,6 +290,7 @@ public class Domovoy : MonoBehaviour
         {
             _isRolling = true;
             _anim.PlayAnimation("Roll");
+            AudioController.PlayAtWorldPosition(_audioLibrary.GetRandom("Cackle"), transform.position);
             RollDamageArea.gameObject.SetActive(true);
             while (_isRolling)
             {

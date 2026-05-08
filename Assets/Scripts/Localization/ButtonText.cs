@@ -1,23 +1,53 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using UnityEditor.TextCore.Text;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ButtonText : MonoBehaviour
 {
-    private TextMeshProUGUI textUI;
-    private Language language;
-
+    [SerializeField]
+    private TextMeshProUGUI _langText;
+    [SerializeField]
+    private Button _langBtn;
+    [SerializeField]
+    private Toggle _lowHpToggle;
+    [SerializeField]
+    private Toggle _endlessHealToggle;
+    
     private void Start()
     {
-        textUI = GetComponentInChildren<TextMeshProUGUI>();
-        language = FindObjectOfType<Language>();
+        _langBtn.onClick.AddListener(() =>
+        {
+            Env.Instance.SwitchLanguage();
+        });
+        Env.Instance.OnLanguageChanged.AddListener(UpdateLangText);
+        UpdateLangText();
+        
+        _lowHpToggle.onValueChanged.AddListener((x) =>
+        {
+            Env.Instance.ToggleLowHp(x);
+        });
+        Env.Instance.OnLowHpChanged.AddListener(() =>
+        {
+            _lowHpToggle.isOn = Env.Instance.lowHp;
+        });
+        _lowHpToggle.isOn = Env.Instance.lowHp;
+        
+        _endlessHealToggle.onValueChanged.AddListener((x) =>
+        {
+            Env.Instance.ToggleEndlessHeal(x);
+        });
+        Env.Instance.OnEndlessHealChanged.AddListener(() =>
+        {
+            _endlessHealToggle.isOn = Env.Instance.endlessHeal;
+        });
+        _endlessHealToggle.isOn = Env.Instance.endlessHeal;
     }
 
-    private void Update()
+    private void UpdateLangText()
     {
-        if(textUI.text != Language.Instance.language)
-            textUI.SetText(Language.Instance.language);
+        if (Env.Instance.language == Env.Instance.ukrainian)
+            _langText.text = "UA";
+        else
+            _langText.text = "EN";
     }
 }

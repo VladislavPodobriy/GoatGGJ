@@ -177,6 +177,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e3b76db486c4014fbb614c5e080d446, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnDead:
+    m_PersistentCalls:
+      m_Calls: []
+  ConnectedRoot: {fileID: 0}
+  Bird: {fileID: 0}
+  _destroyClip: {fileID: 8300000, guid: 25705ce572172fa47a4682dd129c0829, type: 3}
 --- !u!1 &6562904393395532113
 GameObject:
   m_ObjectHideFlags: 0
@@ -310,6 +316,7 @@ MonoBehaviour:
   OnHit:
     m_PersistentCalls:
       m_Calls: []
+  IgnoredHitTypes: 
 --- !u!61 &2705562566597525857
 BoxCollider2D:
   m_ObjectHideFlags: 0

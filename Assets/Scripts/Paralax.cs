@@ -9,6 +9,9 @@ public class Paralax : MonoBehaviour
     private Vector3 _startPos;
     private CinemachineVirtualCamera _virtualCam;
 
+    [SerializeField]
+    private bool _followY;
+    
     private void Start()
     {
         _startPos = transform.position;
@@ -18,7 +21,7 @@ public class Paralax : MonoBehaviour
     private void Update()
     {
         var distance = _virtualCam.State.CorrectedPosition.x - _startPos.x;
-        transform.position = new Vector3(_startPos.x + (distance * _factor), _startPos.y, 0);
+        transform.position = new Vector3(_startPos.x + (distance * _factor), _followY ? _virtualCam.State.CorrectedPosition.y : _startPos.y, 0);
     }
 
     private bool IsCamMoving()

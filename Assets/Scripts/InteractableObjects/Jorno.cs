@@ -17,8 +17,8 @@ public class Jorno : InteractiveObject
     private void Awake()
     {
         base.Awake();
-        text_success = Language.Instance.language == Language.Instance.ukrainian ? ua_success : en_success;
-        text_fail = Language.Instance.language == Language.Instance.ukrainian ? ua_fail : en_fail;
+        text_success = Env.Instance.language == Env.Instance.ukrainian ? ua_success : en_success;
+        text_fail = Env.Instance.language == Env.Instance.ukrainian ? ua_fail : en_fail;
     }
 
     public override void Interact()

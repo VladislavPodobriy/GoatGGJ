@@ -17,6 +17,8 @@ public class Scene_Controller : MonoBehaviour
     public Transform spawnPointLeft;
     public Transform spawnPointRight;
     public int OrthoSize = 8;
+
+    public bool DisableSnow;
     
     [HideInInspector]
     public CinemachineConfiner cameraConfiner; 
@@ -32,6 +34,7 @@ public class Scene_Controller : MonoBehaviour
         {
             SetCameraBounds(cameraBoundsObj, cameraConfiner);
             FindObjectOfType<CinemachineVirtualCamera>().m_Lens.OrthographicSize = OrthoSize;
+            FindObjectOfType<Snow>(true).gameObject.SetActive(!DisableSnow);
         }
     }
 
@@ -65,6 +68,7 @@ public class Scene_Controller : MonoBehaviour
         print("playerPos:" + player.transform.position);
         player.transform.position = targetPos.position;
         SetCameraBounds(targetScene.cameraBoundsObj, targetScene.cameraConfiner);
+        FindObjectOfType<Snow>(true).gameObject.SetActive(!targetScene.DisableSnow);
         FindObjectOfType<CinemachineVirtualCamera>().m_Lens.OrthographicSize = targetScene.OrthoSize;
     }
 

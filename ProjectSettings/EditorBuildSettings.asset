@@ -12,9 +12,15 @@ EditorBuildSettings:
     path: Assets/Scenes/Cutscene.unity
     guid: 11555556fe039464193aa7aa7bc7d988
   - enabled: 1
-    path: Assets/Scenes/Vlad.unity
+    path: Assets/Scenes/Production.unity
     guid: 363176a8d970c92448d43ef2c1728463
   - enabled: 1
     path: Assets/Scenes/CutsceneFinal.unity
     guid: da5641fc4874b394ebae39f5e0e27569
+  - enabled: 1
+    path: Assets/Scenes/2.0/1.unity
+    guid: 04ccb81691cd06b478f2bebb6301892f
+  - enabled: 1
+    path: Assets/Scenes/2.0/2.unity
+    guid: 34ff4de81f5e72041a442b744c22c42b
   m_configObjects: {}

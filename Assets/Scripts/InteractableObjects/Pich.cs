@@ -14,7 +14,7 @@ public class Pich : InteractiveObject
     private void Awake()
     {
         base.Awake();
-        text = Language.Instance.language == Language.Instance.ukrainian ? ua : en;
+        text = Env.Instance.language == Env.Instance.ukrainian ? ua : en;
     }
 
     public override void Interact()

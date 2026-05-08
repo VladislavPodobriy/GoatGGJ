@@ -53,7 +53,7 @@ repeat: none
   orig: 276, 298
   offset: 0, 0
   index: -1
-домовий
+домовий (2)
   rotate: false
   xy: 1948, 2
   size: 276, 298

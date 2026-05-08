@@ -69,7 +69,7 @@ namespace MainScripts.Spine
             enabled = true;
             _animation.enabled = true;
         }
-
+        
         public void Disable()
         {
             enabled = false;
@@ -81,6 +81,15 @@ namespace MainScripts.Spine
             CheckTransitionsForActiveStates();
         }
 
+        public string GetActiveStateName(int trackIndex = 0)
+        {
+            if (_activeAnimationStates.TryGetValue(trackIndex, out var activeState))
+            {
+                return activeState.AnimationStateInfo.Name;
+            }
+            return null;
+        }
+        
         private void CheckTransitionsForActiveStates()
         {
             foreach (var activeState in _activeAnimationStates.Values.ToList())
